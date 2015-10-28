@@ -1,2 +1,2 @@
-# ppro
-PPRO project
+# PPRO project
+App for template choosing.
