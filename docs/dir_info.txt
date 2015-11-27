@@ -1,0 +1,13 @@
+src
+  |-- conf              - Could be used as config directory (not now tho)
+  |-- java              - Java classess and configs
+  
+web
+  |-- assets            - Resources 
+  |    |-- css          - Less/css files
+  |    |-- html         - Static html files 
+  |    |-- js           - JavaScript files
+  |    |-- upload       - Upploaded files (need to figure out what subdirectory scheme we will use)
+  |-- WEB-INF           - Application configs and views 
+  |    |-- jsp          - View files (front-end files in this directory - for now)
+  |    |-- admin2543    - Admin view files
