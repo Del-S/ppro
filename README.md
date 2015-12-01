@@ -11,7 +11,7 @@ Current issues:
 - Connect java classes to Hibernate
 
 Project dependencies:
-Spring Framwork 4.0.1
-JSTL 1.2.2
-Hibernate 4.3.x
-Apache Tiles 3.0.5
+- Spring Framwork 4.0.1
+- JSTL 1.2.2
+- Hibernate 4.3.x
+- Apache Tiles 3.0.5
