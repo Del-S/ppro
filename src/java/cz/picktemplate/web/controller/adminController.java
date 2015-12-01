@@ -12,13 +12,8 @@ public class adminController {
         return "admin2543/index";
     }
     
-    @RequestMapping(value = "/admin2543/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin2543/viewTemplates", method = RequestMethod.GET)
     public String login() {
-        return "admin2543/login";
-    }
-    
-    @RequestMapping(value = "/admin2543/addUser.html", method = RequestMethod.GET)
-    public String addUser() {
-        return "admin2543/addUser";
+        return "admin2543/template";
     }
 }
