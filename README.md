@@ -15,3 +15,7 @@ Project dependencies:
 - JSTL 1.2.2
 - Hibernate 4.3.x
 - Apache Tiles 3.0.5
+Dependencies (optional)
+- Commons-beanutils 1.8
+- Commons-digester 2.0
+- Aopalliance 1.0
