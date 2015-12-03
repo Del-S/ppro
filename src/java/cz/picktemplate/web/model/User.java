@@ -1,16 +1,19 @@
 package cz.picktemplate.web.model;
 
+import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="15pick12_user")
-public class User {
+public class User implements Serializable {
     
     @Id
     @Column(name="id_user")
@@ -40,16 +43,14 @@ public class User {
     private String user_phone;
     
     @Column
+    @NotEmpty
     private int user_rights;
     @Column
     private String user_token;
     
-    public User() {}
-    public User(String user_login, String user_name, String user_surname) {
-        this.user_login = user_login;
-        this.user_name = user_name;
-        this.user_surname = user_surname;
-    }
+    /* It's not column in db */
+    @OneToMany
+    private List<Template> templates;
 
     public int getId_user() {
         return id_user;
@@ -137,6 +138,15 @@ public class User {
 
     public void setUser_token(String user_token) {
         this.user_token = user_token;
+    }
+
+    /* Maybe needed to change to get them form db */
+    public List<Template> getTemplates() {
+        return templates;
+    }
+
+    public void setTemplates(List<Template> templates) {
+        this.templates = templates;
     }
     
 }

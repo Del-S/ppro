@@ -53,8 +53,14 @@
         <property name="packagesToScan" value="cz.picktemplate.web.model" />
     </bean>
    
-    
+    <bean id="addressDAO" class="cz.picktemplate.web.model.dao.UserDaoImpl"></bean>
+    <bean id="componentDAO" class="cz.picktemplate.web.model.dao.ComponentDaoImpl"></bean>
+    <bean id="galleryDAO" class="cz.picktemplate.web.model.dao.GalleryDaoImpl"></bean>
+    <bean id="imageDAO" class="cz.picktemplate.web.model.dao.ImageDaoImpl"></bean>
+    <bean id="orderDAO" class="cz.picktemplate.web.model.dao.OrderDaoImpl"></bean>
+    <bean id="templateDAO" class="cz.picktemplate.web.model.dao.TemplateDaoImpl"></bean>
     <bean id="userDAO" class="cz.picktemplate.web.model.dao.UserDaoImpl"></bean>
+    <bean id="userRatingsDAO" class="cz.picktemplate.web.model.dao.UserRatingsDaoImpl"></bean>
     
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <bean id = "transactionManager" class = "org.springframework.orm.hibernate4.HibernateTransactionManager">
