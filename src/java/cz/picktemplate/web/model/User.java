@@ -2,17 +2,24 @@ package cz.picktemplate.web.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
-@Table(name="15pick12_user")
+@Table(name="15pick12_user", uniqueConstraints = {
+@UniqueConstraint(columnNames = "id_user"),
+@UniqueConstraint(columnNames = "login"),
+@UniqueConstraint(columnNames = "login")})
 public class User implements Serializable {
     
     @Id
@@ -21,36 +28,28 @@ public class User implements Serializable {
     private int id_user;
     private int id_address;
     
-    @Column
     @NotEmpty
-    private String user_login;
-    @Column
+    private String login;
     @NotEmpty
-    private String user_name;
-    @Column
-    private String user_surname;
+    private String name;
+    private String surname;
+    private String email;
     
-    @Column
     @NotEmpty
-    private String user_password;
-    @Column
+    private String password;
     @NotEmpty
-    private String user_hash;
+    private String hash;
     
-    @Column
-    private String user_website;
-    @Column
-    private String user_phone;
+    private String website;
+    private String phone;
     
-    @Column
     @NotEmpty
-    private int user_rights;
-    @Column
-    private String user_token;
+    private int rights;
+    private String token;
     
-    /* It's not column in db */
-    @OneToMany
-    private List<Template> templates;
+    /* Required by Hibernate */
+    public User() {
+    }
 
     public int getId_user() {
         return id_user;
@@ -68,85 +67,84 @@ public class User implements Serializable {
         this.id_address = id_address;
     }
 
-    public String getUser_login() {
-        return user_login;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUser_login(String user_login) {
-        this.user_login = user_login;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getName() {
+        return name;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUser_surname() {
-        return user_surname;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setUser_surname(String user_surname) {
-        this.user_surname = user_surname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getUser_password() {
-        return user_password;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUser_password(String user_password) {
-        this.user_password = user_password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUser_hash() {
-        return user_hash;
+    public String getHash() {
+        return hash;
     }
 
-    public void setUser_hash(String user_hash) {
-        this.user_hash = user_hash;
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 
-    public String getUser_website() {
-        return user_website;
+    public String getWebsite() {
+        return website;
     }
 
-    public void setUser_website(String user_website) {
-        this.user_website = user_website;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
-    public String getUser_phone() {
-        return user_phone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUser_phone(String user_phone) {
-        this.user_phone = user_phone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public int getUser_rights() {
-        return user_rights;
+    public int getRights() {
+        return rights;
     }
 
-    public void setUser_rights(int user_rights) {
-        this.user_rights = user_rights;
+    public void setRights(int rights) {
+        this.rights = rights;
     }
 
-    public String getUser_token() {
-        return user_token;
+    public String getToken() {
+        return token;
     }
 
-    public void setUser_token(String user_token) {
-        this.user_token = user_token;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    /* Maybe needed to change to get them form db */
-    public List<Template> getTemplates() {
-        return templates;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTemplates(List<Template> templates) {
-        this.templates = templates;
+    public void setEmail(String email) {
+        this.email = email;
     }
     
 }

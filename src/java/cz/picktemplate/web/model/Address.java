@@ -27,6 +27,10 @@ public class Address implements Serializable {
     @Column
     @NotEmpty
     private int postal_code;
+    
+    /* Required by Hibernate */
+    public Address() {
+    }
 
     public int getId_address() {
         return id_address;

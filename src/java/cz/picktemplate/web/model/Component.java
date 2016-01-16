@@ -19,6 +19,10 @@ public class Component implements Serializable {
     
     @Column
     @NotEmpty
+    private String component_group;
+    
+    @Column
+    @NotEmpty
     private String name;
     
     @Column
@@ -31,6 +35,10 @@ public class Component implements Serializable {
     @Column
     @NotEmpty
     private int complexity;
+    
+    /* Required by Hibernate */
+    public Component() {
+    }
 
     public int getId_component() {
         return id_component;
@@ -70,5 +78,13 @@ public class Component implements Serializable {
 
     public void setComplexity(int complexity) {
         this.complexity = complexity;
+    }
+
+    public String getComponent_group() {
+        return component_group;
+    }
+
+    public void setComponent_group(String component_group) {
+        this.component_group = component_group;
     }
 }

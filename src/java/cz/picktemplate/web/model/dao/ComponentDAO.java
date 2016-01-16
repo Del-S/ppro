@@ -1,5 +1,11 @@
 package cz.picktemplate.web.model.dao;
 
+import cz.picktemplate.web.model.Component;
+import java.util.List;
+
 public interface ComponentDAO {
-/* get adress, set adress etc */
+    Component getComponentById(int id);
+    void addComponent(Component component);
+    List<Component> getAllComponents();
+    void deleteComponent(Integer component_id);
 }

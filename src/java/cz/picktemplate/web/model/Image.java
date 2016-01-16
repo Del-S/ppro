@@ -28,6 +28,10 @@ public class Image implements Serializable {
     @Column
     private String description;
 
+    /* Required by Hibernate */
+    public Image() {
+    }
+    
     public int getId_image() {
         return id_image;
     }

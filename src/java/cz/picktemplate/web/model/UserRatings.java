@@ -30,6 +30,10 @@ public class UserRatings implements Serializable {
     @Column
     @NotEmpty
     private int rating;
+    
+    /* Required by Hibernate */
+    public UserRatings() {
+    }
 
     public int getId_rating() {
         return id_rating;

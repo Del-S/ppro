@@ -53,7 +53,7 @@
         <property name="packagesToScan" value="cz.picktemplate.web.model" />
     </bean>
    
-    <bean id="addressDAO" class="cz.picktemplate.web.model.dao.UserDaoImpl"></bean>
+    <bean id="addressDAO" class="cz.picktemplate.web.model.dao.AddressDaoImpl"></bean>
     <bean id="componentDAO" class="cz.picktemplate.web.model.dao.ComponentDaoImpl"></bean>
     <bean id="galleryDAO" class="cz.picktemplate.web.model.dao.GalleryDaoImpl"></bean>
     <bean id="imageDAO" class="cz.picktemplate.web.model.dao.ImageDaoImpl"></bean>

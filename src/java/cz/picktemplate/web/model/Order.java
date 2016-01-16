@@ -32,6 +32,10 @@ public class Order implements Serializable {
     
     @OneToMany
     private List<Template> templates;
+    
+    /* Required by Hibernate */
+    public Order() {
+    }
 
     public int getId_order() {
         return id_order;

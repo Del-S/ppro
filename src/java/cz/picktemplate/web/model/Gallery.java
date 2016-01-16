@@ -29,6 +29,10 @@ public class Gallery implements Serializable {
     
     @OneToMany
     private List<Image> images;
+    
+    /* Required by Hibernate */
+    public Gallery() {
+    }
 
     public int getId_gallery() {
         return id_gallery;

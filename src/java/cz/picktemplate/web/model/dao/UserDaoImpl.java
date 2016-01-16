@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional  
-public class UserDaoImpl implements UserDAO {
+public class UserDaoImpl implements UserDAO {    
     @Autowired
     private SessionFactory sessionFactory;
     
@@ -19,14 +19,19 @@ public class UserDaoImpl implements UserDAO {
     }
     
     @Override
+    public User getUserByLogin(String login) {
+        return (User) sessionFactory.getCurrentSession().get(User.class, login);
+    }
+    
+    @Override
     public void addUser(User user) {
         this.sessionFactory.getCurrentSession().save(user);
     }
     
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> getAllEmployees() {
-        return this.sessionFactory.getCurrentSession().createQuery("from 15pick12_user").list();
+    public List<User> getAllUsers() {
+        return this.sessionFactory.getCurrentSession().createCriteria(User.class).list();
     }
     
     @Override
