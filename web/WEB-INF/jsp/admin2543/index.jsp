@@ -1,6 +1,12 @@
-<%@ include file="/WEB-INF/jsp/admin2543/includes.jsp" %>
-<%@ include file="/WEB-INF/jsp/admin2543/header.jsp" %>
-
-<h1>Admiiiin</h1>
-
-<%@ include file="/WEB-INF/jsp/admin2543/footer.jsp" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<tiles:insertDefinition name="adminDefinition">
+    <tiles:putAttribute name="body">
+  
+        <div class="body">
+            <h1>Home page</h1>            
+        </div>
+ 
+    </tiles:putAttribute>
+</tiles:insertDefinition>

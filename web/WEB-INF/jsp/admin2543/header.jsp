@@ -1,5 +1,9 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,4 +14,25 @@
 
 <body>
 
-  <div id="main">
+  <div id="wrap">
+    <div class="admin-back"></div>
+    <nav class="nav admin">
+        <ul id="nav" class="navbar-nav nav-left">
+            <li><a href="<spring:url value="/admin2543/" htmlEscape="true" />">Nástěnka</a></li>
+            <li><a href="<spring:url value="/admin2543/view_templates" htmlEscape="true" />">Šablony</a>
+                <ul class="submenu">
+                    <li><a href="<spring:url value="/admin2543/view_templates" htmlEscape="true" />">Zobrazit šablony</a></li>
+                    <li><a href="<spring:url value="/admin2543/create_template" htmlEscape="true" />">Vytvořit šablonu</a></li>
+                </ul>
+            </li>
+            <li><a href="<spring:url value="/admin2543/view_components" htmlEscape="true" />">Komponenty</a></li>
+            <li><a href="<spring:url value="/admin2543/view_users" htmlEscape="true" />">Uživatelé</a>
+                <ul class="submenu">
+                    <li><a href="<spring:url value="/admin2543/view_users" htmlEscape="true" />">Zobrazit uživatele</a></li>
+                    <li><a href="<spring:url value="/admin2543/create_user" htmlEscape="true" />">Přidate uživatele</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="container admin">
