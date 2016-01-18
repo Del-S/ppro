@@ -22,6 +22,16 @@ public class ComponentDaoImpl implements ComponentDAO {
     public void addComponent(Component component) {
         this.sessionFactory.getCurrentSession().save(component);
     }
+    
+    @Override
+    public void updateComponent(Component component) {
+        //this.sessionFactory.getCurrentSession().saveOrUpdate(component);
+        try {
+            this.sessionFactory.getCurrentSession().update(component);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public List<Component> getAllComponents() {

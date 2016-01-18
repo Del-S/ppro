@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -20,11 +21,11 @@ public class Order implements Serializable {
     private int id_order;
     
     @Column
-    @NotEmpty
+    @NotNull
     private int id_address;
     
     @Column
-    @NotEmpty
+    @NotNull
     private int id_user;
     
     @Column

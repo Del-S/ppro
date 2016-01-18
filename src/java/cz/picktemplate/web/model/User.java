@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,7 +44,7 @@ public class User implements Serializable {
     private String website;
     private String phone;
     
-    @NotEmpty
+    @NotNull
     private int rights;
     private String token;
     

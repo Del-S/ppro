@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "15pick12_gallery")
@@ -20,7 +20,7 @@ public class Gallery implements Serializable {
     private int id_gallery;
     
     @Column
-    @NotEmpty
+    @NotNull
     private int id_template;
     
     /* ID of image which is thumbnail */

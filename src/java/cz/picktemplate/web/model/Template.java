@@ -2,18 +2,15 @@ package cz.picktemplate.web.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name = "15pick12_template")
@@ -23,6 +20,7 @@ public class Template implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id_template;
     private int id_gallery;
+    @NotNull
     private int id_user;
     
     /* Can be changed to string */
@@ -33,7 +31,6 @@ public class Template implements Serializable {
     private String name;
     private String description;
     
-    @NotEmpty
     private int price_implement;
     private int price_editing;
     

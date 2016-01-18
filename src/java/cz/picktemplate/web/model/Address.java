@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -25,7 +26,7 @@ public class Address implements Serializable {
     private String city;
     
     @Column
-    @NotEmpty
+    @NotNull
     private int postal_code;
     
     /* Required by Hibernate */

@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -18,7 +19,7 @@ public class UserRatings implements Serializable {
     private int id_rating;
     
     @Column
-    @NotEmpty
+    @NotNull
     private int id_template;
     
     @Column
@@ -28,7 +29,7 @@ public class UserRatings implements Serializable {
     private int id_user;
 
     @Column
-    @NotEmpty
+    @NotNull
     private int rating;
     
     /* Required by Hibernate */
