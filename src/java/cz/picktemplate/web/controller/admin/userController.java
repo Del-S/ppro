@@ -2,11 +2,15 @@ package cz.picktemplate.web.controller.admin;
 
 import cz.picktemplate.web.model.*;
 import cz.picktemplate.web.model.dao.*;
+import java.security.SecureRandom;
 import java.util.List;
+import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +22,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class userController {
     @Autowired
     private UserDAO userDAO;
+    
+    @Autowired
+    private AddressDAO addressDAO;
+    
+    @Autowired
+    SmartValidator validator;
     
     private static final Logger logger = Logger.getLogger(userController.class);
     
@@ -68,21 +78,48 @@ public class userController {
     }
     
     @RequestMapping(value = {"/admin2543/add_user"}, method = RequestMethod.POST)
-    public String add_user(Model model, @ModelAttribute("userAccount")UserAccount userAccount) {
+    public String add_user(Model model, @Valid @ModelAttribute("userAccount")UserAccount userAccount, BindingResult result) {
         try {
-            // update address
+            Address address = userAccount.getAddress();
             User user = userAccount.getUser();
+            Boolean addressSave = false;
+            
+            /* Address is not required */
+            if( !address.getAddress().isEmpty() || !address.getCity().isEmpty() || !address.getPostal_code().isEmpty() ) {
+                validator.validate(address, result, Address.class);
+                addressSave = true;
+            } 
+            
+            /* Return form errors */
+            if(result.hasErrors()) { 
+                model.addAttribute("userAccount", userAccount);
+                return "admin2543/new/user_new";
+            }
+            
+            /* Saves id of address to user */
+            if(addressSave) { 
+                addressDAO.addAddress(address); 
+                user.setId_address(address.getId_address());
+            } else {
+                user.setId_address(-1);
+            }
+            
+            /* Sets password only if the two passwords are set */
             if( (!userAccount.getPassword().isEmpty()) && (userAccount.getPassword().equals(userAccount.getPassword_check())) ) {
                 user.setPassword(userAccount.getPassword());
             }
+            
+            SecureRandom random = new SecureRandom().getInstance("SHA1PRNG");
+            random.setSeed("abcdefghijklmnopqrstuvwxy123456789".getBytes("us-ascii"));
+            
+            //user.setHash(random.g);
             user.setHash("password hash"); // generate password hash :)
             user.setToken("generate token");  // Also generate token
-            user.setId_address(0); // create address and get id
-            userDAO.addUser(user);
+            //userDAO.addUser(user);
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return "redirect:view_users";
+        return "redirect:view_users";    
     }
     
     @RequestMapping(value = {"/admin2543/update_user"}, method = RequestMethod.POST)

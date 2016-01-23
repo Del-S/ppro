@@ -26,8 +26,8 @@ public class Address implements Serializable {
     private String city;
     
     @Column
-    @NotNull
-    private Integer postal_code;
+    @NotEmpty
+    private String postal_code;
     
     /* Required by Hibernate */
     public Address() {
@@ -57,11 +57,11 @@ public class Address implements Serializable {
         this.city = city;
     }
 
-    public Integer getPostal_code() {
+    public String getPostal_code() {
         return postal_code;
     }
 
-    public void setPostal_code(Integer postal_code) {
+    public void setPostal_code(String postal_code) {
         this.postal_code = postal_code;
     }
 }

@@ -2,8 +2,10 @@
 package cz.picktemplate.web.model;
 
 import java.io.Serializable;
+import javax.validation.Valid;
 
 public class UserAccount implements Serializable {
+    @Valid
     private User user;
     private Address address;
     private String password;

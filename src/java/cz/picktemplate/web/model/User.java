@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -29,6 +30,7 @@ public class User implements Serializable {
     @NotEmpty
     private String name;
     private String surname;
+    @Email
     private String email;
     
     @NotEmpty
