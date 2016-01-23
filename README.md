@@ -2,16 +2,16 @@
 App for template choosing.
 
 Current progress:
-- Working test Spring MVC project
-- Split frontend and backend (1 Controller for each)
-- Loading resources (css, js, static html and uploads)
-- Implementation of Apache tiles complete
-- Created Java classes
+- Form for add/create/trash user
+- Fix UTF-8 encoding
+- Added Log4j logging
 
 Current issues:
-- Connect java classes to Hibernate
 - Forms for adding Users/Templates etc.
-- User password generation (by custom salt) and login form
+- Connect user forms with address
+- Generate user Token and Hash
+- Use user Hash to crypt password
+- User login
 
 # Dependencies
 
@@ -25,3 +25,4 @@ Optional Dependencies:
 - Commons-beanutils 1.8
 - Commons-digester 2.0
 - Aopalliance 1.0
+- Log4j 1.2.17

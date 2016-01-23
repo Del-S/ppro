@@ -19,10 +19,10 @@
                 <tr>
                     <td><c:out value="${template.id_template}"/></td>
                     <td class="actions">
-                        <a class="btn-edit-main" href="./template_detail?tmp=${template.id_template}"><c:out value="${template.name}"/></a>
+                        <a class="btn-edit-main" href="./detail_template?tmp=${template.id_template}"><c:out value="${template.name}"/></a>
                         <div class="row-actions">
-                            <span class="edit"><a class="btn-edit" href="./template_detail?tmp=${template.id_template}">Upravit</a></span>
-                            <span class="delete"><a class="btn-trash" href="./template_trash?tmp=${template.id_template}">Odstranit</a></span> 
+                            <span class="edit"><a class="btn-edit" href="./detail_template?tmp=${template.id_template}">Upravit</a></span>
+                            <span class="delete"><a class="btn-trash" href="./trash_template?tmp=${template.id_template}">Odstranit</a></span> 
                         </div>   
                     </td>
                     <td><c:out value="${template.description}"/></td>

@@ -1,38 +1,36 @@
 package cz.picktemplate.web.model;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name="15pick12_user", uniqueConstraints = {
 @UniqueConstraint(columnNames = "id_user"),
 @UniqueConstraint(columnNames = "login"),
-@UniqueConstraint(columnNames = "login")})
+@UniqueConstraint(columnNames = "email")})
 public class User implements Serializable {
     
     @Id
     @Column(name="id_user")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id_user;
-    private int id_address;
+    private Integer id_user;
+    private Integer id_address;
     
     @NotEmpty
     private String login;
     @NotEmpty
     private String name;
     private String surname;
+    @Email
     private String email;
     
     @NotEmpty
@@ -43,27 +41,27 @@ public class User implements Serializable {
     private String website;
     private String phone;
     
-    @NotEmpty
-    private int rights;
+    @NotNull
+    private Integer rights;
     private String token;
     
     /* Required by Hibernate */
     public User() {
     }
 
-    public int getId_user() {
+    public Integer getId_user() {
         return id_user;
     }
 
-    public void setId_user(int id_user) {
+    public void setId_user(Integer id_user) {
         this.id_user = id_user;
     }
 
-    public int getId_address() {
+    public Integer getId_address() {
         return id_address;
     }
 
-    public void setId_address(int id_address) {
+    public void setId_address(Integer id_address) {
         this.id_address = id_address;
     }
 
@@ -123,11 +121,11 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    public int getRights() {
+    public Integer getRights() {
         return rights;
     }
 
-    public void setRights(int rights) {
+    public void setRights(Integer rights) {
         this.rights = rights;
     }
 

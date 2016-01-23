@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -14,7 +15,7 @@ public class Address implements Serializable {
     @Id
     @Column(name="id_address")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id_address;
+    private Integer id_address;
     
     @Column
     @NotEmpty
@@ -26,17 +27,17 @@ public class Address implements Serializable {
     
     @Column
     @NotEmpty
-    private int postal_code;
+    private String postal_code;
     
     /* Required by Hibernate */
     public Address() {
     }
 
-    public int getId_address() {
+    public Integer getId_address() {
         return id_address;
     }
 
-    public void setId_address(int id_address) {
+    public void setId_address(Integer id_address) {
         this.id_address = id_address;
     }
 
@@ -56,11 +57,11 @@ public class Address implements Serializable {
         this.city = city;
     }
 
-    public int getPostal_code() {
+    public String getPostal_code() {
         return postal_code;
     }
 
-    public void setPostal_code(int postal_code) {
+    public void setPostal_code(String postal_code) {
         this.postal_code = postal_code;
     }
 }

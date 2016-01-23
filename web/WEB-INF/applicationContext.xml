@@ -3,11 +3,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
@@ -21,5 +25,58 @@
     p:password="${jdbc.password}" /-->
 
     <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+
+    <context:component-scan base-package="cz.picktemplate.web"/>
+    
+    <mvc:resources mapping="/assets/**" location="/assets/" />
+    <mvc:annotation-driven />  
+    
+    <context:annotation-config />
+
+    <!-- Tiles configuration -->
+    <bean id="adminConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+		<value>/WEB-INF/tiles.xml</value>
+            </list>
+	</property>
+    </bean>
+    
+    <!-- JDBC configuration (MySQL) -->
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ppro" />
+        <property name="username" value="root" />
+        <property name="password" value="" />
+    </bean>
+    
+    <!-- Hibernate configuration -->
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+        <property name="packagesToScan" value="cz.picktemplate.web.model" />
+    </bean>
+    
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id = "transactionManager" class = "org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name = "sessionFactory" ref = "sessionFactory" />
+    </bean>
+    
+    <bean id="addressDAO" class="cz.picktemplate.web.model.dao.AddressDaoImpl"></bean>
+    <bean id="componentDAO" class="cz.picktemplate.web.model.dao.ComponentDaoImpl"></bean>
+    <bean id="componentGroupDAO" class="cz.picktemplate.web.model.dao.ComponentGroupDaoImpl"></bean>
+    <bean id="galleryDAO" class="cz.picktemplate.web.model.dao.GalleryDaoImpl"></bean>
+    <bean id="imageDAO" class="cz.picktemplate.web.model.dao.ImageDaoImpl"></bean>
+    <bean id="orderDAO" class="cz.picktemplate.web.model.dao.OrderDaoImpl"></bean>
+    <bean id="templateDAO" class="cz.picktemplate.web.model.dao.TemplateDaoImpl"></bean>
+    <bean id="userDAO" class="cz.picktemplate.web.model.dao.UserDaoImpl"></bean>
+    <bean id="userRatingsDAO" class="cz.picktemplate.web.model.dao.UserRatingsDaoImpl"></bean>
 
 </beans>

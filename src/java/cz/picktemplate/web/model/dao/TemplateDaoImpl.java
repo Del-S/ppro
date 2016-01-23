@@ -23,6 +23,11 @@ public class TemplateDaoImpl implements TemplateDAO {
         this.sessionFactory.getCurrentSession().save(template);
     }
     
+    @Override
+    public void updateTemplate(Template template) {
+        this.sessionFactory.getCurrentSession().saveOrUpdate(template);
+    }
+    
     @SuppressWarnings("unchecked")
     @Override
     public List<Template> getAllTemplates() {

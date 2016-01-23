@@ -10,50 +10,30 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "15pick12_image")
-public class Image implements Serializable {
+@Table(name = "15pick12_component_group")
+public class ComponentGroup implements Serializable {
     @Id
-    @Column(name="id_image")
+    @Column(name="id_component_group")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id_image;
+    private Integer id_component_group;
     
-    /* Also known as src */
     @Column
     @NotEmpty
-    private String url;
-    
-    @Column
-    private String alt;
+    private String name;
     
     @Column
     private String description;
-
-    /* Required by Hibernate */
-    public Image() {
-    }
     
-    public Integer getId_image() {
-        return id_image;
+    /* Required by Hibernate */
+    public ComponentGroup() {
     }
 
-    public void setId_image(Integer id_image) {
-        this.id_image = id_image;
+    public String getName() {
+        return name;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getAlt() {
-        return alt;
-    }
-
-    public void setAlt(String alt) {
-        this.alt = alt;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -62,5 +42,13 @@ public class Image implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId_component_group() {
+        return id_component_group;
+    }
+
+    public void setId_component_group(Integer id_component_group) {
+        this.id_component_group = id_component_group;
     }
 }
