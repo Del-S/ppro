@@ -15,7 +15,7 @@ public class ComponentGroup implements Serializable {
     @Id
     @Column(name="id_component_group")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id_component_group;
+    private Integer id_component_group;
     
     @Column
     @NotEmpty
@@ -44,11 +44,11 @@ public class ComponentGroup implements Serializable {
         this.description = description;
     }
 
-    public int getId_component_group() {
+    public Integer getId_component_group() {
         return id_component_group;
     }
 
-    public void setId_component_group(int id_component_group) {
+    public void setId_component_group(Integer id_component_group) {
         this.id_component_group = id_component_group;
     }
 }

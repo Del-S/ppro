@@ -3,6 +3,7 @@
     <display-name>Test</display-name>
     <description>Test</description>
     
+    <!-- Encoding fix -->
     <filter>
         <filter-name>encoding-filter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -41,6 +42,7 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     
+    <!-- Index servlet -->
     <servlet>
         <servlet-name>index</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -52,7 +54,17 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     
-    <!-- Add second servlet for /admin..../ -->
+    <!-- Admin servlet -->
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin2543/</url-pattern>
+    </servlet-mapping>
     
     <session-config>    
         <session-timeout>

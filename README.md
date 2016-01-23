@@ -3,6 +3,8 @@ App for template choosing.
 
 Current progress:
 - Form for add/create/trash components
+- Form for add/create/trash componentGroups
+- Trash componentGroups => remove components from group to group 0 (non existent) 
 - Fix UTF-8 encoding
 - Added Log4j logging
 

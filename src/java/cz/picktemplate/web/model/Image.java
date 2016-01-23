@@ -15,7 +15,7 @@ public class Image implements Serializable {
     @Id
     @Column(name="id_image")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id_image;
+    private Integer id_image;
     
     /* Also known as src */
     @Column
@@ -32,11 +32,11 @@ public class Image implements Serializable {
     public Image() {
     }
     
-    public int getId_image() {
+    public Integer getId_image() {
         return id_image;
     }
 
-    public void setId_image(int id_image) {
+    public void setId_image(Integer id_image) {
         this.id_image = id_image;
     }
 

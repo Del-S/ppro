@@ -17,15 +17,15 @@ public class Gallery implements Serializable {
     @Id
     @Column(name="id_gallery")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id_gallery;
+    private Integer id_gallery;
     
     @Column
     @NotNull
-    private int id_template;
+    private Integer id_template;
     
     /* ID of image which is thumbnail */
     @Column
-    private int id_thumbnail;
+    private Integer id_thumbnail;
     
     @OneToMany
     private List<Image> images;
@@ -34,27 +34,27 @@ public class Gallery implements Serializable {
     public Gallery() {
     }
 
-    public int getId_gallery() {
+    public Integer getId_gallery() {
         return id_gallery;
     }
 
-    public void setId_gallery(int id_gallery) {
+    public void setId_gallery(Integer id_gallery) {
         this.id_gallery = id_gallery;
     }
 
-    public int getId_template() {
+    public Integer getId_template() {
         return id_template;
     }
 
-    public void setId_template(int id_template) {
+    public void setId_template(Integer id_template) {
         this.id_template = id_template;
     }
 
-    public int getId_thumbnail() {
+    public Integer getId_thumbnail() {
         return id_thumbnail;
     }
 
-    public void setId_thumbnail(int id_thumbnail) {
+    public void setId_thumbnail(Integer id_thumbnail) {
         this.id_thumbnail = id_thumbnail;
     }
 

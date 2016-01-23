@@ -25,7 +25,11 @@
                     <li><a href="<spring:url value="/admin2543/create_template" htmlEscape="true" />">Vytvořit šablonu</a></li>
                 </ul>
             </li>
-            <li><a href="<spring:url value="/admin2543/view_components" htmlEscape="true" />">Komponenty</a></li>
+            <li><a href="<spring:url value="/admin2543/view_components" htmlEscape="true" />">Komponenty</a>
+                <ul class="submenu">
+                    <li><a href="<spring:url value="/admin2543/view_component_groups" htmlEscape="true" />">Skupiny komponent</a></li>
+                </ul>
+            </li>
             <li><a href="<spring:url value="/admin2543/view_users" htmlEscape="true" />">Uživatelé</a>
                 <ul class="submenu">
                     <li><a href="<spring:url value="/admin2543/view_users" htmlEscape="true" />">Zobrazit uživatele</a></li>

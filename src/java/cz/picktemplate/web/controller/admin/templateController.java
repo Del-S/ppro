@@ -34,7 +34,7 @@ public class templateController {
             /* Maybe some better solution? */
             if(template.getId_template() == templateId) {
                 model.addAttribute("template", template);
-                return "admin2543/template_detail";
+                return "admin2543/detail/template_detail";
             } else { 
                 return "redirect:view_templates";
             }

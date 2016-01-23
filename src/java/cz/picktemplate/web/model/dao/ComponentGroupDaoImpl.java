@@ -25,7 +25,6 @@ public class ComponentGroupDaoImpl implements ComponentGroupDAO {
     
     @Override
     public void updateComponentGroup(ComponentGroup componentGroup) {
-        //this.sessionFactory.getCurrentSession().saveOrUpdate(component);
         this.sessionFactory.getCurrentSession().update(componentGroup);
     }
 

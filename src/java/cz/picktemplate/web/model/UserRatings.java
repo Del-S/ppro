@@ -16,63 +16,63 @@ public class UserRatings implements Serializable {
     @Id
     @Column(name = "id_rating")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id_rating;
+    private Integer id_rating;
     
     @Column
     @NotNull
-    private int id_template;
+    private Integer id_template;
     
     @Column
-    private int id_previous_template;
+    private Integer id_previous_template;
     
     @Column
-    private int id_user;
+    private Integer id_user;
 
     @Column
     @NotNull
-    private int rating;
+    private Integer rating;
     
     /* Required by Hibernate */
     public UserRatings() {
     }
 
-    public int getId_rating() {
+    public Integer getId_rating() {
         return id_rating;
     }
 
-    public void setId_rating(int id_rating) {
+    public void setId_rating(Integer id_rating) {
         this.id_rating = id_rating;
     }
 
-    public int getId_template() {
+    public Integer getId_template() {
         return id_template;
     }
 
-    public void setId_template(int id_template) {
+    public void setId_template(Integer id_template) {
         this.id_template = id_template;
     }
 
-    public int getId_previous_template() {
+    public Integer getId_previous_template() {
         return id_previous_template;
     }
 
-    public void setId_previous_template(int id_previous_template) {
+    public void setId_previous_template(Integer id_previous_template) {
         this.id_previous_template = id_previous_template;
     }
 
-    public int getId_user() {
+    public Integer getId_user() {
         return id_user;
     }
 
-    public void setId_user(int id_user) {
+    public void setId_user(Integer id_user) {
         this.id_user = id_user;
     }
 
-    public int getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 }

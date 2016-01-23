@@ -9,4 +9,7 @@ public interface ComponentDAO {
     void updateComponent(Component component);
     List<Component> getAllComponents();
     void deleteComponent(Integer component_id);
+    
+    List<Component> getCompontentsByRow(String row, String operand, String stringArray);
+    void updateMultipleComponent(List<Component> components);
 }

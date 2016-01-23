@@ -11,7 +11,7 @@
             <form:form action="./add_component" method="POST" modelAttribute="component">
                 <fieldset>
                     <form:label path="id_component_group">id_component_group</form:label>
-                    <form:input path="id_component_group" />
+                    <form:select path="id_component_group" items="${componentGroups}" />
                 </fieldset>
                 <fieldset>
                     <form:label path="name">name</form:label>
@@ -49,7 +49,7 @@
                 <c:forEach items="${components}" var="component">
                     <tr>
                         <td><c:out value="${component.id_component}"/></td>
-                        <td><c:out value="${component.id_component_group}"/></td>
+                        <td><c:out value="${componentGroups[component.id_component_group]}"/></td>
                         <td class="actions">
                             <a class="btn-edit-main" href="./detail_component?cmp=${component.id_component}"><c:out value="${component.name}"/></a>
                             <div class="row-actions">

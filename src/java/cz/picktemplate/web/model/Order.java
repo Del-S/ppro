@@ -18,15 +18,15 @@ public class Order implements Serializable {
     @Id
     @Column(name = "id_order")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id_order;
+    private Integer id_order;
     
     @Column
     @NotNull
-    private int id_address;
+    private Integer id_address;
     
     @Column
     @NotNull
-    private int id_user;
+    private Integer id_user;
     
     @Column
     private String note;
@@ -38,27 +38,27 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public int getId_order() {
+    public Integer getId_order() {
         return id_order;
     }
 
-    public void setId_order(int id_order) {
+    public void setId_order(Integer id_order) {
         this.id_order = id_order;
     }
 
-    public int getId_address() {
+    public Integer getId_address() {
         return id_address;
     }
 
-    public void setId_address(int id_address) {
+    public void setId_address(Integer id_address) {
         this.id_address = id_address;
     }
 
-    public int getId_user() {
+    public Integer getId_user() {
         return id_user;
     }
 
-    public void setId_user(int id_user) {
+    public void setId_user(Integer id_user) {
         this.id_user = id_user;
     }
 

@@ -26,8 +26,8 @@ public class User implements Serializable {
     @Id
     @Column(name="id_user")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id_user;
-    private int id_address;
+    private Integer id_user;
+    private Integer id_address;
     
     @NotEmpty
     private String login;
@@ -45,26 +45,26 @@ public class User implements Serializable {
     private String phone;
     
     @NotNull
-    private int rights;
+    private Integer rights;
     private String token;
     
     /* Required by Hibernate */
     public User() {
     }
 
-    public int getId_user() {
+    public Integer getId_user() {
         return id_user;
     }
 
-    public void setId_user(int id_user) {
+    public void setId_user(Integer id_user) {
         this.id_user = id_user;
     }
 
-    public int getId_address() {
+    public Integer getId_address() {
         return id_address;
     }
 
-    public void setId_address(int id_address) {
+    public void setId_address(Integer id_address) {
         this.id_address = id_address;
     }
 
@@ -124,11 +124,11 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    public int getRights() {
+    public Integer getRights() {
         return rights;
     }
 
-    public void setRights(int rights) {
+    public void setRights(Integer rights) {
         this.rights = rights;
     }
 

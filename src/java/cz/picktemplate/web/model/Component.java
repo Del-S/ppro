@@ -16,11 +16,11 @@ public class Component implements Serializable {
     @Id
     @Column(name="id_component")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id_component;
+    private Integer id_component;
     
     @Column
     @NotNull
-    private int id_component_group;
+    private Integer id_component_group;
     
     @Column
     @NotEmpty
@@ -35,17 +35,17 @@ public class Component implements Serializable {
     
     @Column
     @NotNull
-    private int complexity;
+    private Integer complexity;
     
     /* Required by Hibernate */
     public Component() {
     }
 
-    public int getId_component() {
+    public Integer getId_component() {
         return id_component;
     }
 
-    public void setId_component(int id_component) {
+    public void setId_component(Integer id_component) {
         this.id_component = id_component;
     }
 
@@ -73,19 +73,19 @@ public class Component implements Serializable {
         this.description_link = description_link;
     }
 
-    public int getComplexity() {
+    public Integer getComplexity() {
         return complexity;
     }
 
-    public void setComplexity(int complexity) {
+    public void setComplexity(Integer complexity) {
         this.complexity = complexity;
     }
 
-    public int getId_component_group() {
+    public Integer getId_component_group() {
         return id_component_group;
     }
 
-    public void setId_component_group(int id_component_group) {
+    public void setId_component_group(Integer id_component_group) {
         this.id_component_group = id_component_group;
     }
 }
