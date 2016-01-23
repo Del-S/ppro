@@ -54,18 +54,6 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     
-    <!-- Admin servlet -->
-    <servlet>
-        <servlet-name>admin</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>2</load-on-startup>
-    </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>admin</servlet-name>
-        <url-pattern>/admin2543/</url-pattern>
-    </servlet-mapping>
-    
     <session-config>    
         <session-timeout>
             30

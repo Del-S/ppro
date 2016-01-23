@@ -28,6 +28,11 @@ public class UserDaoImpl implements UserDAO {
         this.sessionFactory.getCurrentSession().save(user);
     }
     
+    @Override
+    public void updateUser(User user) {
+        this.sessionFactory.getCurrentSession().update(user);
+    }
+    
     @SuppressWarnings("unchecked")
     @Override
     public List<User> getAllUsers() {

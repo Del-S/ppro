@@ -33,7 +33,7 @@
             <li><a href="<spring:url value="/admin2543/view_users" htmlEscape="true" />">Uživatelé</a>
                 <ul class="submenu">
                     <li><a href="<spring:url value="/admin2543/view_users" htmlEscape="true" />">Zobrazit uživatele</a></li>
-                    <li><a href="<spring:url value="/admin2543/create_user" htmlEscape="true" />">Přidate uživatele</a></li>
+                    <li><a href="<spring:url value="/admin2543/new_user" htmlEscape="true" />">Přidate uživatele</a></li>
                 </ul>
             </li>
         </ul>

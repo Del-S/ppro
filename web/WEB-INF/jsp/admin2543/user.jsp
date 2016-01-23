@@ -18,10 +18,10 @@
             <c:forEach items="${users}" var="user">
                 <tr>
                     <td class="actions">
-                        <a class="btn-edit-main" href="./detail_user?usr=${user.id_user}"><c:out value="${user.login}"/></a>
+                        <a class="btn-edit-main" href="./detail_user?us=${user.id_user}"><c:out value="${user.login}"/></a>
                         <div class="row-actions">
-                            <span class="edit"><a class="btn-edit" href="./detail_user?usr=${user.id_user}">Upravit</a></span>
-                            <span class="delete"><a class="btn-trash" href="./trash_user?usr=${user.id_user}">Odstranit</a></span> 
+                            <span class="edit"><a class="btn-edit" href="./detail_user?us=${user.id_user}">Upravit</a></span>
+                            <span class="delete"><a class="btn-trash" href="./trash_user?us=${user.id_user}">Odstranit</a></span> 
                         </div>   
                     </td>
                     <td><c:out value="${user.name}"/></td>

@@ -2,14 +2,15 @@
 App for template choosing.
 
 Current progress:
-- Form for add/create/trash components
-- Form for add/create/trash componentGroups
-- Trash componentGroups => remove components from group to group 0 (non existent) 
+- Form for add/create/trash user
 - Fix UTF-8 encoding
 - Added Log4j logging
 
 Current issues:
 - Forms for adding Users/Templates etc.
+- Connect user forms with address
+- Generate user Token and Hash
+- Use user Hash to crypt password
 - User login
 
 # Dependencies

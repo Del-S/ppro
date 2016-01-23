@@ -2,8 +2,6 @@ package cz.picktemplate.web.controller.admin;
 
 import cz.picktemplate.web.model.*;
 import cz.picktemplate.web.model.dao.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +45,7 @@ public class componentController {
             Component component = componentDAO.getComponentById(componentId);
 
             /* Maybe some better solution? */
-            if(component.getId_component() == componentId) {
+            if(componentId.equals(component.getId_component())) {
                 model.addAttribute("component", component);
                 model.addAttribute("componentGroups", this.getComponentGroupNames());
                 return "admin2543/detail/component_detail";
@@ -111,7 +109,7 @@ public class componentController {
             ComponentGroup componentGroup = componentGroupDAO.getComponentGroupById(componentGroupId);  
         
             /* Maybe some better solution? */
-            if(componentGroup.getId_component_group() == componentGroupId) {
+            if(componentGroupId.equals(componentGroup.getId_component_group())) {
                 model.addAttribute("componentGroup", componentGroup);
                 return "admin2543/detail/component_group_detail";
             } else { 

@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class adminController {
     
-    @Autowired
-    private UserDAO userDAO;
-    
     @RequestMapping(value = {"/admin2543/", "/admin2543/index"}, method = RequestMethod.GET)
     public String index(Model model) {
         return "admin2543/index";
@@ -48,13 +45,4 @@ public class adminController {
         }
         return "admin2543/login";
     }*/
-   
-    
-    @RequestMapping(value = {"/admin2543/view_users"}, method = RequestMethod.GET)
-    public String view_users(Model model) {
-        List<User> users = userDAO.getAllUsers();
-        
-        model.addAttribute("users", users);
-        return "admin2543/user";
-    }
 }
