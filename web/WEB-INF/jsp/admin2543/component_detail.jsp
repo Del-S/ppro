@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -10,8 +10,8 @@
         <div class="col-left">
             <form:form action="./update_component" method="POST" modelAttribute="component">
                 <fieldset>
-                    <form:label path="component_group">component_group</form:label>
-                    <form:input path="component_group" />
+                    <form:label path="id_component_group">id_component_group</form:label>
+                    <form:input path="id_component_group" />
                 </fieldset>
                 <fieldset>
                     <form:label path="name">name</form:label>
