@@ -30,9 +30,9 @@
                     <form:errors path="user.email" />
                 </fieldset>
                 <fieldset>
-                    <form:label path="password">password</form:label>
-                    <form:input path="password" />
-                    <form:errors path="password" />
+                    <form:label path="user.password">password</form:label>
+                    <form:input path="user.password" />
+                    <form:errors path="user.password" />
                 </fieldset>
                 <fieldset>
                     <form:label path="password_check">password_check</form:label>
@@ -71,7 +71,7 @@
                     <form:errors path="address.postal_code" />
                 </fieldset>
                 <input type="submit" value="Submit"/>
-            </form:form>      
+            </form:form> 
         </div>
         
     </tiles:putAttribute>

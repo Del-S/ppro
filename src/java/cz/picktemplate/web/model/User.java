@@ -30,6 +30,7 @@ public class User implements Serializable {
     @NotEmpty
     private String name;
     private String surname;
+    @NotEmpty
     @Email
     private String email;
     

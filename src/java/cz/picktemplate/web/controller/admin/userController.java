@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -85,17 +86,13 @@ public class userController {
             Boolean addressSave = false;
             
             /* Address is not required */
-            if( !address.getAddress().isEmpty() || !address.getCity().isEmpty() || !address.getPostal_code().isEmpty() ) {
-                validator.validate(address, result, Address.class);
+            if( (!address.getAddress().isEmpty()) || (!address.getCity().isEmpty()) || (!address.getPostal_code().isEmpty()) ) {
+                result.pushNestedPath("address");
+                validator.validate(address, result);
+                result.popNestedPath();
                 addressSave = true;
             } 
-            
-            /* Return form errors */
-            if(result.hasErrors()) { 
-                model.addAttribute("userAccount", userAccount);
-                return "admin2543/new/user_new";
-            }
-            
+                   
             /* Saves id of address to user */
             if(addressSave) { 
                 addressDAO.addAddress(address); 
@@ -105,21 +102,29 @@ public class userController {
             }
             
             /* Sets password only if the two passwords are set */
-            if( (!userAccount.getPassword().isEmpty()) && (userAccount.getPassword().equals(userAccount.getPassword_check())) ) {
-                user.setPassword(userAccount.getPassword());
+            if( (!user.getPassword().isEmpty()) && (user.getPassword().equals(userAccount.getPassword_check())) ) {
+                /* Create custom password_check error */
+                String hash = this.generateHash();
+                user.setHash(hash);
+                user.setPassword(this.hashPassword(userAccount.getPassword(), hash));
             }
             
-            SecureRandom random = new SecureRandom().getInstance("SHA1PRNG");
-            random.setSeed("abcdefghijklmnopqrstuvwxy123456789".getBytes("us-ascii"));
-            
-            //user.setHash(random.g);
-            user.setHash("password hash"); // generate password hash :)
-            user.setToken("generate token");  // Also generate token
+            user.setToken("sdv");  // Also generate token
             //userDAO.addUser(user);
+            
+            /* Return form errors */
+            if(result.hasErrors()) { 
+                logger.error(result.getAllErrors());
+                model.addAttribute("userAccount", userAccount);
+                return "admin2543/new/user_new";
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return "redirect:view_users";    
+        //return "redirect:view_users";
+        
+        model.addAttribute("userAccount", userAccount);
+        return "admin2543/new/user_new";
     }
     
     @RequestMapping(value = {"/admin2543/update_user"}, method = RequestMethod.POST)
@@ -150,6 +155,31 @@ public class userController {
             e.printStackTrace();
         }
         return "redirect:view_users";
+    }
+    
+    public String generateHash() {
+        //String VALID_PW_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+{}[]|:;<>?,./";
+        SecureRandom random = new SecureRandom();
+        String hash = "";
+        
+        try { random.getInstance("SHA1PRNG"); } catch (Exception e) { e.printStackTrace(); }
+        random.setSeed(253466875);
+        byte[] salt = new byte[50];
+        random.nextBytes(salt);
+        
+        for(int i=0; i<salt.length; i++) {
+            
+        }
+        
+        // Finish this :)
+        
+            logger.error(" Secure Random # generated using setSeed(byte[]) is  " + salt.toString());
+        return "hash";
+    }
+    
+    public String hashPassword(String password, String hash) {
+        
+        return password;
     }
     
 }
