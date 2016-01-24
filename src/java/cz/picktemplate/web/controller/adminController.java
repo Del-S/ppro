@@ -1,4 +1,4 @@
-package cz.picktemplate.web.controller;
+package cz.picktemplate.web.controller.admin;
 
 import cz.picktemplate.web.model.*;
 import cz.picktemplate.web.model.dao.*;
@@ -11,13 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class adminController {
-    
-    @Autowired
-    private UserDAO userDAO;
-    @Autowired
-    private TemplateDAO templateDAO;
-    @Autowired
-    private ComponentDAO componentDAO;
     
     @RequestMapping(value = {"/admin2543/", "/admin2543/index"}, method = RequestMethod.GET)
     public String index(Model model) {
@@ -52,33 +45,4 @@ public class adminController {
         }
         return "admin2543/login";
     }*/
-
-    
-    @RequestMapping(value = {"/admin2543/view_templates"}, method = RequestMethod.GET)
-    public String view_templates(Model model) {
-        User admin = userDAO.getUserById(1);
-        List<Template> templates = templateDAO.getAllTemplates();     
-        
-        model.addAttribute("templates", templates);
-        model.addAttribute("admin", admin);
-        return "admin2543/template";
-    }
-    
-    @RequestMapping(value = {"/admin2543/view_components"}, method = RequestMethod.GET)
-    public String view_components(Model model) {
-        User admin = userDAO.getUserById(1);
-        List<Component> components = componentDAO.getAllComponents();
-        
-        model.addAttribute("components", components);
-        model.addAttribute("admin", admin);
-        return "admin2543/component";
-    }
-    
-    @RequestMapping(value = {"/admin2543/view_users"}, method = RequestMethod.GET)
-    public String view_users(Model model) {
-        List<User> users = userDAO.getAllUsers();
-        
-        model.addAttribute("users", users);
-        return "admin2543/user";
-    }
 }
