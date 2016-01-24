@@ -2,8 +2,14 @@ package cz.picktemplate.web.controller.admin;
 
 import cz.picktemplate.web.model.*;
 import cz.picktemplate.web.model.dao.*;
+import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
+import java.util.Random;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +53,13 @@ public class userController {
         try {
             Integer userId = Integer.parseInt(usId);               
             User user = userDAO.getUserById(userId);
+            Address address = addressDAO.getAddressById(user.getId_address());
 
             /* Maybe some better solution? */
             if(userId.equals(user.getId_user())) {
                 UserAccount userAccount = new UserAccount(); // change to use user and address
                 userAccount.setUser(user);
+                userAccount.setAddress(address);
                 
                 model.addAttribute("userAccount", userAccount);
                 return "admin2543/detail/user_detail";
@@ -79,62 +87,97 @@ public class userController {
     }
     
     @RequestMapping(value = {"/admin2543/add_user"}, method = RequestMethod.POST)
-    public String add_user(Model model, @Valid @ModelAttribute("userAccount")UserAccount userAccount, BindingResult result) {
+    public String add_user(Model model, @ModelAttribute("userAccount")UserAccount userAccount, BindingResult result) {
         try {
             Address address = userAccount.getAddress();
             User user = userAccount.getUser();
-            Boolean addressSave = false;
+
+            /* Sets password only if the two passwords are set */
+            if( (!user.getPassword().isEmpty()) && (user.getPassword().equals(userAccount.getPassword_check())) ) {
+                /* Create custom password_check error */
+                String salt = user.generateHashToken(true);
+                user.setSalt(salt);
+                String password = user.hashPassword(user.getPassword(), salt);
+                user.setPassword(password);
+            } else {
+                // TODO: Return error
+            }
+            user.setToken(user.generateHashToken(false));
             
-            /* Address is not required */
+            /* Check for errors in form */
+            Boolean addressSave = false;    // Address is not required
             if( (!address.getAddress().isEmpty()) || (!address.getCity().isEmpty()) || (!address.getPostal_code().isEmpty()) ) {
                 result.pushNestedPath("address");
                 validator.validate(address, result);
                 result.popNestedPath();
                 addressSave = true;
             } 
-                   
-            /* Saves id of address to user */
+
+            result.pushNestedPath("user");
+            validator.validate(user, result);
+            result.popNestedPath();
+            
+            /* Return with errors */
+            if(result.hasErrors()) { 
+                logger.error(result.getAllErrors());
+                model.addAttribute("userAccount", userAccount);
+                return "admin2543/new/user_new";
+            }
+            
+            /* Saves address and user */
             if(addressSave) { 
                 addressDAO.addAddress(address); 
                 user.setId_address(address.getId_address());
             } else {
                 user.setId_address(-1);
             }
+            userDAO.addUser(user);
             
-            /* Sets password only if the two passwords are set */
-            if( (!user.getPassword().isEmpty()) && (user.getPassword().equals(userAccount.getPassword_check())) ) {
-                /* Create custom password_check error */
-                String hash = this.generateHash();
-                user.setHash(hash);
-                user.setPassword(this.hashPassword(userAccount.getPassword(), hash));
-            }
-            
-            user.setToken("sdv");  // Also generate token
-            //userDAO.addUser(user);
-            
-            /* Return form errors */
-            if(result.hasErrors()) { 
-                logger.error(result.getAllErrors());
-                model.addAttribute("userAccount", userAccount);
-                return "admin2543/new/user_new";
-            }
         } catch(Exception e) {
             e.printStackTrace();
         }
-        //return "redirect:view_users";
-        
-        model.addAttribute("userAccount", userAccount);
-        return "admin2543/new/user_new";
+        return "redirect:view_users";
     }
     
     @RequestMapping(value = {"/admin2543/update_user"}, method = RequestMethod.POST)
-    public String update_user(Model model, @ModelAttribute("userAccount")UserAccount userAccount) {
+    public String update_user(Model model, @ModelAttribute("userAccount")UserAccount userAccount, BindingResult result) {
         try {
             User user = userAccount.getUser();
+            Address address = userAccount.getAddress();
+            
+            /* Sets password only if the two passwords are set */
             if( (!userAccount.getPassword().isEmpty()) && (userAccount.getPassword().equals(userAccount.getPassword_check())) ) {
-                user.setPassword(userAccount.getPassword());
+                /* Create custom password_check error */
+                String salt = user.generateHashToken(true);
+                user.setSalt(salt);
+                String password = user.hashPassword(userAccount.getPassword(), salt);
+                user.setPassword(password);
             }
-            // update address here
+            
+            /* Check for errors in form */
+            Boolean addressSave = false;    // Address is not required
+            if( (!address.getAddress().isEmpty()) || (!address.getCity().isEmpty()) || (!address.getPostal_code().isEmpty()) ) {
+                result.pushNestedPath("address");
+                validator.validate(address, result);
+                result.popNestedPath();
+                addressSave = true;
+            } 
+
+            result.pushNestedPath("user");
+            validator.validate(user, result);
+            result.popNestedPath();
+            
+            /* Return with errors */
+            if(result.hasErrors()) { 
+                logger.error(result.getAllErrors());
+                model.addAttribute("userAccount", userAccount);
+                return "admin2543/detail/user_detail";
+            }
+            
+            /* Saves address and user */
+            if(addressSave) { 
+                addressDAO.updateAddress(address); 
+            }
             userDAO.updateUser(user);
         } catch(Exception e) {
             e.printStackTrace();
@@ -149,37 +192,11 @@ public class userController {
             Integer userId = Integer.parseInt(usId);                 
             
             User us = userDAO.getUserById(userId);
-            // delete address by user
+            addressDAO.deleteAddress(us.getId_address());
             userDAO.deleteUser(userId);
         } catch(Exception e) {
             e.printStackTrace();
         }
         return "redirect:view_users";
     }
-    
-    public String generateHash() {
-        //String VALID_PW_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+{}[]|:;<>?,./";
-        SecureRandom random = new SecureRandom();
-        String hash = "";
-        
-        try { random.getInstance("SHA1PRNG"); } catch (Exception e) { e.printStackTrace(); }
-        random.setSeed(253466875);
-        byte[] salt = new byte[50];
-        random.nextBytes(salt);
-        
-        for(int i=0; i<salt.length; i++) {
-            
-        }
-        
-        // Finish this :)
-        
-            logger.error(" Secure Random # generated using setSeed(byte[]) is  " + salt.toString());
-        return "hash";
-    }
-    
-    public String hashPassword(String password, String hash) {
-        
-        return password;
-    }
-    
 }
