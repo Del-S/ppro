@@ -1,12 +1,17 @@
 package cz.picktemplate.web.model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -17,10 +22,6 @@ public class Component implements Serializable {
     @Column(name="id_component")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_component;
-    
-    @Column
-    @NotNull
-    private Integer id_component_group;
     
     @Column
     @NotEmpty
@@ -36,6 +37,13 @@ public class Component implements Serializable {
     @Column
     @NotNull
     private Integer complexity;
+    
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "id_component_group")
+    private ComponentGroup componentGroup;
+    
+    @Transient
+    private Integer form_id_component_group;
     
     /* Required by Hibernate */
     public Component() {
@@ -81,11 +89,19 @@ public class Component implements Serializable {
         this.complexity = complexity;
     }
 
-    public Integer getId_component_group() {
-        return id_component_group;
+    public ComponentGroup getComponentGroup() {
+        return componentGroup;
     }
 
-    public void setId_component_group(Integer id_component_group) {
-        this.id_component_group = id_component_group;
+    public void setComponentGroup(ComponentGroup componentGroup) {
+        this.componentGroup = componentGroup;
+    }
+
+    public Integer getForm_id_component_group() {
+        return form_id_component_group;
+    }
+
+    public void setForm_id_component_group(Integer form_id_component_group) {
+        this.form_id_component_group = form_id_component_group;
     }
 }

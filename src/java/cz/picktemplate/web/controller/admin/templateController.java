@@ -16,12 +16,30 @@ public class templateController {
     @Autowired
     private TemplateDAO templateDAO;
     
+    @Autowired
+    private ComponentGroupDAO componentGroupDAO;
+    
     @RequestMapping(value = {"/admin2543/view_templates"}, method = RequestMethod.GET)
     public String view_templates(Model model) {
         List<Template> templates = templateDAO.getAllTemplates();     
         
         model.addAttribute("templates", templates);
         return "admin2543/template";
+    }
+    
+    @RequestMapping(value = {"/admin2543/new_template"}, method = RequestMethod.GET)
+    public String new_template(Model model) {
+        /* Convert in RequestParam is returning error 400 - better this way */
+        try {
+            List<ComponentGroup> componentgroups = componentGroupDAO.getAllComponentGroups();
+
+            model.addAttribute("template", new Template());
+            model.addAttribute("componentgroups", componentgroups);
+            return "admin2543/new/template_new";
+        } catch(Exception e) {
+            e.printStackTrace();
+            return "redirect:view_templates";
+        }
     }
     
     @RequestMapping(value = {"/admin2543/detail_template"}, method = RequestMethod.GET)

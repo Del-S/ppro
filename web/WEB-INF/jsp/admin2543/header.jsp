@@ -22,7 +22,7 @@
             <li><a href="<spring:url value="/admin2543/view_templates" htmlEscape="true" />">Šablony</a>
                 <ul class="submenu">
                     <li><a href="<spring:url value="/admin2543/view_templates" htmlEscape="true" />">Zobrazit šablony</a></li>
-                    <li><a href="<spring:url value="/admin2543/create_template" htmlEscape="true" />">Vytvořit šablonu</a></li>
+                    <li><a href="<spring:url value="/admin2543/new_template" htmlEscape="true" />">Vytvořit šablonu</a></li>
                 </ul>
             </li>
             <li><a href="<spring:url value="/admin2543/view_components" htmlEscape="true" />">Komponenty</a>

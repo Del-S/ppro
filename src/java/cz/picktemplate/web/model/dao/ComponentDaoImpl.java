@@ -38,6 +38,7 @@ public class ComponentDaoImpl implements ComponentDAO {
     public void deleteComponent(Integer component_id) {
         Component component = (Component) sessionFactory.getCurrentSession().load(Component.class, component_id);
         if (null != component) {
+            component.setComponentGroup(null);
             this.sessionFactory.getCurrentSession().delete(component);
         }
     }
