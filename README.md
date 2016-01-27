@@ -1,4 +1,4 @@
-# PPRO project
+# Pick Template (PPRO project for University of Hradec Králové)
 App for template choosing.
 
 This web application should enable quick and easy selection of web templates. There will be two ways to pick a template.
