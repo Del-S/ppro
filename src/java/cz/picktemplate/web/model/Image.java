@@ -20,10 +20,10 @@ public class Image implements Serializable {
     /* Also known as src */
     @Column
     @NotEmpty
-    private String url;
+    private String image_src;
     
     @Column
-    private String alt;
+    private String image_alt;
     
     @Column
     private String description;
@@ -61,20 +61,20 @@ public class Image implements Serializable {
         this.id_image = id_image;
     }
 
-    public String getUrl() {
-        return url;
+    public String getImage_src() {
+        return image_src;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setImage_src(String image_src) {
+        this.image_src = image_src;
     }
 
-    public String getAlt() {
-        return alt;
+    public String getImage_alt() {
+        return image_alt;
     }
 
-    public void setAlt(String alt) {
-        this.alt = alt;
+    public void setImage_alt(String image_alt) {
+        this.image_alt = image_alt;
     }
 
     public String getDescription() {
