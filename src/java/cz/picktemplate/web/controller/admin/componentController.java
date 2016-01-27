@@ -5,10 +5,13 @@ import cz.picktemplate.web.model.dao.*;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes(value = {"component", "componentGroup"})
-
+@Transactional
 public class componentController {
     @Autowired
     private ComponentDAO componentDAO;
@@ -44,24 +47,38 @@ public class componentController {
         try {
             Integer componentId = Integer.parseInt(cmpId);               
             Component component = componentDAO.getComponentById(componentId);
-
+            if( component.getComponentGroup() != null ) {
+                component.setForm_id_component_group( component.getComponentGroup().getId_component_group() );
+            }
+                
             /* Maybe some better solution? */
             if(componentId.equals(component.getId_component())) {
                 model.addAttribute("component", component);
                 model.addAttribute("componentGroups", this.getComponentGroupNames());
                 return "admin2543/detail/component_detail";
-            } else { 
-                return "redirect:view_components";
-            }
+            } 
         } catch(Exception e) {
             e.printStackTrace();
-            return "redirect:view_components";
         }
+        return "redirect:view_components";
     }
     
     @RequestMapping(value = {"/admin2543/add_component"}, method = RequestMethod.POST)
-    public String add_component(Model model, @ModelAttribute("component")Component component) {
+    public String add_component(Model model, @Valid @ModelAttribute("component")Component component, BindingResult result) {
         try {
+            /* Return with errors */
+            if(result.hasErrors()) { 
+                logger.error(result.getAllErrors());   
+                List<Component> components = componentDAO.getAllComponents();
+        
+                model.addAttribute("component", component);
+                model.addAttribute("components", components);
+                model.addAttribute("componentGroups", this.getComponentGroupNames());
+                return "admin2543/component";
+            }
+            Integer sComponentGroupId = component.getForm_id_component_group();
+            component.setComponentGroup( componentGroupDAO.getComponentGroupById(sComponentGroupId) );
+
             componentDAO.addComponent(component);
         } catch(Exception e) {
             e.printStackTrace();
@@ -70,8 +87,18 @@ public class componentController {
     }
     
     @RequestMapping(value = {"/admin2543/update_component"}, method = RequestMethod.POST)
-    public String update_component(Model model, @ModelAttribute("component")Component component) {
+    public String update_component(Model model, @Valid @ModelAttribute("component")Component component, BindingResult result) {
         try {
+            /* Return with errors */
+            if(result.hasErrors()) { 
+                logger.error(result.getAllErrors());   
+                model.addAttribute("component", component);
+                model.addAttribute("componentGroups", this.getComponentGroupNames());
+                return "admin2543/detail/component_detail";
+            }
+            Integer sComponentGroupId = component.getForm_id_component_group();
+            component.setComponentGroup( componentGroupDAO.getComponentGroupById(sComponentGroupId) );
+            
             componentDAO.updateComponent(component);
         } catch(Exception e) {
             e.printStackTrace();
@@ -113,18 +140,26 @@ public class componentController {
             if(componentGroupId.equals(componentGroup.getId_component_group())) {
                 model.addAttribute("componentGroup", componentGroup);
                 return "admin2543/detail/component_group_detail";
-            } else { 
-                return "redirect:view_components";
-            }
+            } 
         } catch(Exception e) {
             e.printStackTrace();
-            return "redirect:view_components";
         }
+        return "redirect:view_component_groups";
     }
     
     @RequestMapping(value = {"/admin2543/add_component_group"}, method = RequestMethod.POST)
-    public String add_component_group(Model model, @ModelAttribute("componentGroup")ComponentGroup componentGroup) {
+    public String add_component_group(Model model, @Valid @ModelAttribute("componentGroup")ComponentGroup componentGroup, BindingResult result) {
         try {
+            /* Return with errors */
+            if(result.hasErrors()) { 
+                logger.error(result.getAllErrors());   
+                List<ComponentGroup> componentGroups = componentGroupDAO.getAllComponentGroups();
+        
+                model.addAttribute("componentGroup", componentGroup);
+                model.addAttribute("componentsGroup", componentGroups);
+                return "admin2543/component_group";
+            }
+            
             componentGroupDAO.addComponentGroup(componentGroup);
         } catch(Exception e) {
             e.printStackTrace();
@@ -133,8 +168,15 @@ public class componentController {
     }
     
     @RequestMapping(value = {"/admin2543/update_component_group"}, method = RequestMethod.POST)
-    public String update_component_group(Model model, @ModelAttribute("componentGroup")ComponentGroup componentGroup) {
+    public String update_component_group(Model model, @Valid @ModelAttribute("componentGroup")ComponentGroup componentGroup, BindingResult result) {
         try {
+            /* Return with errors */
+            if(result.hasErrors()) { 
+                logger.error(result.getAllErrors());   
+                model.addAttribute("componentGroup", componentGroup);
+                return "admin2543/detail/component_group_detail";
+            }
+            
             componentGroupDAO.updateComponentGroup(componentGroup);
         } catch(Exception e) {
             e.printStackTrace();
@@ -147,14 +189,15 @@ public class componentController {
         /* Convert in RequestParam is returning error 400 - better this way */
         try {
             Integer componentGroupId = Integer.parseInt(cgId);                 
-        
-            componentGroupDAO.deleteComponentGroup(componentGroupId);
-            List<Component> components_by_group = componentDAO.getCompontentsByRow("id_component_group", "=", componentGroupId.toString());
+            ComponentGroup componentGroup = componentGroupDAO.getComponentGroupById(componentGroupId);
+            
+            List<Component> components_by_group = componentGroup.getComponents();
             for(Component c : components_by_group) {
-                c.setId_component_group(0);         // Erase this from display (cannot be deleted or moved to another group)
+                c.setComponentGroup(null);         // Erase this from display (cannot be deleted or moved to another group)
             }
             componentDAO.updateMultipleComponent(components_by_group);
             
+            componentGroupDAO.deleteComponentGroup(componentGroupId);        
         } catch(Exception e) {
             e.printStackTrace();
         }

@@ -37,6 +37,27 @@ public class Order implements Serializable {
     /* Required by Hibernate */
     public Order() {
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if ( !(obj instanceof Order) ) return false;
+
+        final Order order = (Order) obj;
+
+        if ( !order.getId_order().equals( this.getId_order()) ) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 38; 
+        int result = 2; 
+        result = prime * result;
+        result += ((id_order == null) ? 0 : id_order.hashCode());
+        result += ((id_address == null) ? 0 : id_address.hashCode());
+        return result;
+    }
 
     public Integer getId_order() {
         return id_order;

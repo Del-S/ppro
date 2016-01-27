@@ -32,6 +32,27 @@ public class Image implements Serializable {
     public Image() {
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if ( !(obj instanceof Image) ) return false;
+
+        final Image image = (Image) obj;
+
+        if ( !image.getId_image().equals( this.getId_image()) ) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 32; 
+        int result = 2; 
+        result = prime * result;
+        result += ((id_image == null) ? 0 : id_image.hashCode());
+        result += ((url == null) ? 0 : url.hashCode());
+        return result;
+    }
+    
     public Integer getId_image() {
         return id_image;
     }

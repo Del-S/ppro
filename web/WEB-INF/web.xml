@@ -77,4 +77,17 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/admin2543/*</url-pattern>
     </filter-mapping>-->
+    
+    <!--filter>
+        <filter-name>OpenEntityManagerInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+        <init-param>
+            <param-name>entityManagerFactory</param-name>
+            <param-value>entityManagerFactory</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>OpenEntityManagerInViewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping-->
 </web-app>

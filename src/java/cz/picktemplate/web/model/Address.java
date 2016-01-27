@@ -32,6 +32,27 @@ public class Address implements Serializable {
     /* Required by Hibernate */
     public Address() {
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if ( !(obj instanceof Address) ) return false;
+
+        final Address address = (Address) obj;
+
+        if ( !address.getId_address().equals( this.getId_address()) ) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 25; 
+        int result = 1; 
+        result = prime * result;
+        result += ((id_address == null) ? 0 : id_address.hashCode());
+        result += ((address == null) ? 0 : address.hashCode());
+        return result;
+    }
 
     public Integer getId_address() {
         return id_address;

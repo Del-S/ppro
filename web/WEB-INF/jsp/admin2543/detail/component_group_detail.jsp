@@ -12,10 +12,12 @@
                 <fieldset>
                     <form:label path="name">name</form:label>
                     <form:input path="name" />
+                    <form:errors path="name" />
                 </fieldset>
                 <fieldset>
                     <form:label path="description">description</form:label>
-                    <form:input path="description" />
+                    <form:textarea path="description" />
+                    <form:errors path="description" />
                 </fieldset>
                 <input type="submit" value="Submit"/>
             </form:form>      
