@@ -48,6 +48,27 @@ public class Component implements Serializable {
     /* Required by Hibernate */
     public Component() {
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if ( !(obj instanceof Component) ) return false;
+
+        final Component component = (Component) obj;
+
+        if ( !component.getId_component().equals( this.getId_component()) ) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 35; 
+        int result = 1; 
+        result = prime * result;
+        result += ((id_component == null) ? 0 : id_component.hashCode());
+        result += ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
 
     public Integer getId_component() {
         return id_component;

@@ -77,6 +77,27 @@ public class User implements Serializable {
     public User() {
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if ( !(obj instanceof User) ) return false;
+
+        final User user = (User) obj;
+
+        if ( !user.getId_user().equals( this.getId_user()) ) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 40; 
+        int result = 2; 
+        result = prime * result;
+        result += ((id_user == null) ? 0 : id_user.hashCode());
+        result += ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+    
     public String generateHashToken(boolean isHash) {
         if(isHash) return generateHash(valid_hash_chars, pass_length);
         else return generateHash(valid_token_chars, token_length);

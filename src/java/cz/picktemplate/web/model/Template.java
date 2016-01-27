@@ -2,14 +2,7 @@ package cz.picktemplate.web.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -20,12 +13,11 @@ public class Template implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_template;
     private Integer id_gallery;
-    @NotNull
-    private Integer id_user;
+    private Integer id_user;    // Should be NotNull but it will not be used for now :)
     
     /* Can be changed to string */
-    @OneToMany
-    private List<Template> similar_templates;
+    /*@OneToMany
+    private List<Template> similar_templates;*/
     
     @NotEmpty
     private String name;
@@ -35,14 +27,38 @@ public class Template implements Serializable {
     private Integer price_editing;
     
     /* This actualy has to be saved in db */
-    @OneToMany
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST }, targetEntity = Component.class)
+    @JoinTable(name="15pick12_template_components", joinColumns={
+        @JoinColumn(name="id_template", nullable = false, updatable = false)}, 
+        inverseJoinColumns={@JoinColumn(name="id_component", nullable = false, updatable = false)})
     private List<Component> components;
 
-    @OneToMany
-    private List<UserRatings> user_ratings;
+    /*@OneToMany
+    private List<UserRatings> user_ratings;*/
     
     /* Required by Hibernate */
     public Template() {
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if ( !(obj instanceof Template) ) return false;
+
+        final Template template = (Template) obj;
+
+        if ( !template.getId_template().equals( this.getId_template()) ) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 42; 
+        int result = 2; 
+        result = prime * result;
+        result += ((id_template == null) ? 0 : id_template.hashCode());
+        result += ((name == null) ? 0 : name.hashCode());
+        return result;
     }
 
     public Integer getId_template() {
@@ -53,13 +69,13 @@ public class Template implements Serializable {
         this.id_template = id_template;
     }
 
-    public List<Template> getSimilar_templates() {
+    /*public List<Template> getSimilar_templates() {
         return similar_templates;
     }
 
     public void setSimilar_templates(List<Template> similar_templates) {
         this.similar_templates = similar_templates;
-    }
+    }*/
 
     public Integer getId_gallery() {
         return id_gallery;
@@ -109,13 +125,13 @@ public class Template implements Serializable {
         this.components = components;
     }
 
-    public List<UserRatings> getUser_ratings() {
+    /*public List<UserRatings> getUser_ratings() {
         return user_ratings;
     }
 
     public void setUser_ratings(List<UserRatings> user_ratings) {
         this.user_ratings = user_ratings;
-    }
+    }*/
 
     public Integer getId_user() {
         return id_user;

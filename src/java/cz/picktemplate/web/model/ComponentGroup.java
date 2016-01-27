@@ -34,7 +34,28 @@ public class ComponentGroup implements Serializable {
     /* Required by Hibernate */
     public ComponentGroup() {
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if ( !(obj instanceof ComponentGroup) ) return false;
 
+        final ComponentGroup componentGroup = (ComponentGroup) obj;
+
+        if ( !componentGroup.getId_component_group().equals( this.getId_component_group()) ) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 37; 
+        int result = 1; 
+        result = prime * result;
+        result += ((id_component_group == null) ? 0 : id_component_group.hashCode());
+        result += ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+    
     public String getName() {
         return name;
     }

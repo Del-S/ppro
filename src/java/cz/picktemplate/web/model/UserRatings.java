@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "15pick12_user_ratings")
@@ -34,6 +33,27 @@ public class UserRatings implements Serializable {
     
     /* Required by Hibernate */
     public UserRatings() {
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if ( !(obj instanceof UserRatings) ) return false;
+
+        final UserRatings userRatings = (UserRatings) obj;
+
+        if ( !userRatings.getId_rating().equals( this.getId_rating()) ) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 48; 
+        int result = 2; 
+        result = prime * result;
+        result += ((id_rating == null) ? 0 : id_rating.hashCode());
+        result += ((id_template == null) ? 0 : id_template.hashCode());
+        return result;
     }
 
     public Integer getId_rating() {

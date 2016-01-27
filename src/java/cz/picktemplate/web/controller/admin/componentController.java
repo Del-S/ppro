@@ -47,7 +47,9 @@ public class componentController {
         try {
             Integer componentId = Integer.parseInt(cmpId);               
             Component component = componentDAO.getComponentById(componentId);
-            component.setForm_id_component_group( component.getComponentGroup().getId_component_group() );
+            if( component.getComponentGroup() != null ) {
+                component.setForm_id_component_group( component.getComponentGroup().getId_component_group() );
+            }
                 
             /* Maybe some better solution? */
             if(componentId.equals(component.getId_component())) {

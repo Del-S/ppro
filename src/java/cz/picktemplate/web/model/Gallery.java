@@ -33,6 +33,27 @@ public class Gallery implements Serializable {
     /* Required by Hibernate */
     public Gallery() {
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if ( !(obj instanceof Gallery) ) return false;
+
+        final Gallery gallery = (Gallery) obj;
+
+        if ( !gallery.getId_gallery().equals( this.getId_gallery()) ) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 27; 
+        int result = 1; 
+        result = prime * result;
+        result += ((id_gallery == null) ? 0 : id_gallery.hashCode());
+        result += ((id_template == null) ? 0 : id_template.hashCode());
+        return result;
+    }
 
     public Integer getId_gallery() {
         return id_gallery;
