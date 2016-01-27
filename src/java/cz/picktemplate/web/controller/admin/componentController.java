@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes(value = {"component", "componentGroup"})
+
 public class componentController {
     @Autowired
     private ComponentDAO componentDAO;
