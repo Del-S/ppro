@@ -27,6 +27,9 @@ public class Image implements Serializable {
     
     @Column
     private String description;
+    
+    @Column
+    private String thumbnail_src;
 
     /* Required by Hibernate */
     public Image() {
@@ -83,5 +86,12 @@ public class Image implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public String getThumbnail() {
+        return thumbnail_src;
+    }
+
+    public void setThumbnail(String thumbnail_src) {
+        this.thumbnail_src = thumbnail_src;
     }
 }
