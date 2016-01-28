@@ -51,7 +51,7 @@
                 </c:forEach>
             </tbody>
         </table>
-        </div>         
+        </div>
  
     </tiles:putAttribute>
 </tiles:insertDefinition>
