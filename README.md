@@ -28,6 +28,8 @@ Main dependencies:
 - JSTL 1.2.2
 - Hibernate 4.3.x
 - Apache Tiles 3.0.5
+- Commons Fileupload 1.3
+- Commons IO 1.1
 
 Optional Dependencies:
 - Commons-beanutils 1.8
@@ -37,4 +39,5 @@ Optional Dependencies:
 
 # Server
 GlassFish
+
 Tomcat solution requires revision of dependencies (not priotity for now).

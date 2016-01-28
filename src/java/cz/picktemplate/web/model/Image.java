@@ -49,7 +49,7 @@ public class Image implements Serializable {
         int result = 2; 
         result = prime * result;
         result += ((id_image == null) ? 0 : id_image.hashCode());
-        result += ((url == null) ? 0 : url.hashCode());
+        result += ((image_src == null) ? 0 : image_src.hashCode());
         return result;
     }
     
