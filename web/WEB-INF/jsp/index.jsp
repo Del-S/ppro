@@ -4,10 +4,10 @@
     <tiles:putAttribute name="title">sdf</tiles:putAttribute>
     <tiles:putAttribute name="body">
   
-        <div class="body">
+        <div id="main-area" class="container">
             <h1>Home page !</h1>
  
-            <p>The time on the server is ${serverTime}.</p>
+            <p>The time on the server is ${serverTime}.<a>Teeeest</a></p>
         </div>
  
     </tiles:putAttribute>

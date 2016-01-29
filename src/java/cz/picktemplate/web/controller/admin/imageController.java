@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import org.springframework.validation.BindingResult;
 
 @Controller
 @SessionAttributes(value = {"image"})
@@ -34,7 +36,6 @@ public class imageController{
     private ImageDAO imageDAO;
     private int miniatura = 250;
     ImageIcon i;
-    
     
         private static final Logger logger = LoggerFactory
             .getLogger(imageController.class);
@@ -49,11 +50,19 @@ public class imageController{
         return "/admin2543/image";
     }
     @RequestMapping(value = {"/admin2543/trash_image"}, method = RequestMethod.GET)
-    public String trash_image(Model model, @RequestParam(value = "image", required = false, defaultValue = "-1") final String imageId) {
+    public String trash_image(Model model, @RequestParam(value = "image", required = false, defaultValue = "-1") final String imageId, HttpServletRequest request) {
         /* Convert in RequestParam is returning error 400 - better this way */
-        try {
-            Integer imagId = Integer.parseInt(imageId);                 
+        ServletContext context = request.getServletContext();
+        String rootPath = context.getRealPath("/");
         
+        try {
+            Integer imagId = Integer.parseInt(imageId); 
+            Image image = imageDAO.getImagesById(imagId);
+            image.getImage_src();
+            File file = new File(rootPath + image.getThumbnail());
+            file.delete();
+            File file1 = new File(rootPath + image.getImage_src());
+            file1.delete();
             imageDAO.deleteImage(imagId);
         } catch(Exception e) {
             e.printStackTrace();
@@ -89,7 +98,7 @@ public class imageController{
         return "redirect:view_images";
     }
     @RequestMapping(value = {"/admin2543/add_image"}, method = RequestMethod.POST)
-    public String add_image(Model model, @RequestParam("file") MultipartFile file, @ModelAttribute("image")Image image, HttpServletRequest request) throws IOException {
+    public String add_image(Model model, @Valid @RequestParam("file") MultipartFile file, @ModelAttribute("image")Image image, HttpServletRequest request, BindingResult result) throws IOException {
         i = new ImageIcon(file.getOriginalFilename());
         ServletContext context = request.getServletContext();
         String rootPath = context.getRealPath("/");
@@ -108,13 +117,22 @@ public class imageController{
                         + serverFile.getAbsolutePath());
                 // tvoreni miniatury
                 ImageIcon ii = new ImageIcon(rootPath+ "assets/uploads/" +i);
-                BufferedImage bi = new BufferedImage(miniatura, miniatura, BufferedImage.TYPE_INT_RGB);
+                double deleni;
+                double height = ii.getIconHeight();
+                double width = ii.getIconWidth();
+                
+                deleni = width/250;
+                
+                height = (height / deleni);
+                width = (width/deleni);
+                
+                BufferedImage bi = new BufferedImage((int)width, (int)height, BufferedImage.TYPE_INT_RGB);
                         Graphics2D g2d = (Graphics2D)bi.createGraphics();
                         g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING,
                                 RenderingHints.VALUE_RENDER_QUALITY));
-                        boolean b = g2d.drawImage(ii.getImage(), 0, 0, miniatura, miniatura, null);
+                        boolean b = g2d.drawImage(ii.getImage(), 0, 0, (int)width, (int)height, null);
                         System.out.println(b);
-                        ImageIO.write(bi, "jpg", new File(rootPath+ "assets/uploads/thumbnail"+File.separator+i));
+                        ImageIO.write(bi, "jpg", new File(rootPath+ "assets/uploads/thumbnail/"+i));
                        
                 
                        
@@ -128,6 +146,7 @@ public class imageController{
                     + " because the file was empty.";
         }
         image.setImage_src("assets/uploads/" +i);
+        image.setThumbnail("assets/uploads/thumbnail/" +i);
         imageDAO.addImage(image);
         return "redirect:view_images";
     }
