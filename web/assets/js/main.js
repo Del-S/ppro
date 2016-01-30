@@ -40,4 +40,58 @@ jQuery(document).ready(function( $ ) {
     $('.icon_scroll_top').click(function() {
         $('html,body').animate({scrollTop: 0 }, 1000);
     });
+    
+    // Ico hide components
+    $('.ico-arrow-up').on("click", function() {
+        if($(this).parent().hasClass("collapsed")) {
+            $(this).parent().removeClass("collapsed");
+        } else {
+            $(this).parent().addClass("collapsed");
+        }
+        
+        var components = $(this).parents(".component_group").children(".components");
+        if($(components).hasClass("hidden")) {
+            $(components).removeClass("hidden");
+            $(components).slideDown();
+        } else {
+            $(components).addClass("hidden");
+            $(components).slideUp();
+        }      
+    });
+    
+    // Ajax to update templates
+    $('.filter-row').children("input[type=checkbox], .comp_checkbox_span").on("click", function() {
+        // Add class and check checkbox
+        if($(this).parent().hasClass("checked")) {
+            $(this).parent().removeClass("checked");
+            if($(this).hasClass("comp_checkbox_span")) { $(this).siblings("input[type=checkbox]").prop('checked', false); }
+        } else {
+            $(this).parent().addClass("checked");
+            if($(this).hasClass("comp_checkbox_span")) { $(this).siblings("input[type=checkbox]").prop('checked', true); }
+        }
+        
+        // Show updating value
+        
+        // Send checked components to Ajax
+        var components = [];
+        $('.filter-row input[type=checkbox]').each(function() {
+            if($(this).is(':checked')) { components.push($(this).val()); }
+        });
+        var data_send = {"components": components };
+        
+        // Ajax call and update
+        $.ajax({
+            type: "POST",
+            url: "update_template_display",
+            data: JSON.stringify(data_send),
+            dataType: 'json',
+            headers: { 
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json' 
+            },
+            success: function(data){
+                 console.log('success');
+            }
+        });
+    });
 });

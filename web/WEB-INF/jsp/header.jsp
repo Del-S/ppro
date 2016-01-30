@@ -37,7 +37,7 @@
                 </a>
             </div>
             <div id="top-navigation"> 
-                <nav id="top-menu-nav" class="nav admin">
+                <div id="top-menu-nav" class="nav admin">
                     <ul id="top-menu" class="nav">
                         <li class="menu-item"><a href="<spring:url value="/" htmlEscape="true" />">Domů</a></li>
                         <li class="menu-item"><a href="<spring:url value="/pick_template_eshop" htmlEscape="true" />">Šablony - Eshop</a>
@@ -49,7 +49,7 @@
                         <li class="menu-item"><a href="<spring:url value="/info" htmlEscape="true" />">Informace</a></li>
                         <li class="menu-item"><a href="<spring:url value="/kontakt" htmlEscape="true" />">Kontakt</a></li>
                     </ul>
-                </nav>                   
+                </div>                   
             </div>
         </div> <!-- .container -->
     </header>
