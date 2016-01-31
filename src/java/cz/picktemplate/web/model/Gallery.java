@@ -2,6 +2,7 @@ package cz.picktemplate.web.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "15pick12_gallery")
@@ -18,17 +19,20 @@ public class Gallery implements Serializable {
     @Column(name="id_gallery")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_gallery;
+    @Column
+    @NotEmpty
+    private String name;
     
     @Column
-    @NotNull
-    private Integer id_template;
+    private String description;
     
-    /* ID of image which is thumbnail */
     @Column
     private Integer id_thumbnail;
     
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="gallery", orphanRemoval = true)
     private List<Image> images;
+   
+   
     
     /* Required by Hibernate */
     public Gallery() {
@@ -51,7 +55,7 @@ public class Gallery implements Serializable {
         int result = 1; 
         result = prime * result;
         result += ((id_gallery == null) ? 0 : id_gallery.hashCode());
-        result += ((id_template == null) ? 0 : id_template.hashCode());
+        result += ((name == null) ? 0 : name.hashCode());
         return result;
     }
 
@@ -61,14 +65,6 @@ public class Gallery implements Serializable {
 
     public void setId_gallery(Integer id_gallery) {
         this.id_gallery = id_gallery;
-    }
-
-    public Integer getId_template() {
-        return id_template;
-    }
-
-    public void setId_template(Integer id_template) {
-        this.id_template = id_template;
     }
 
     public Integer getId_thumbnail() {
@@ -86,4 +82,23 @@ public class Gallery implements Serializable {
     public void setImages(List<Image> images) {
         this.images = images;
     }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public void setDescription(String description){
+        this.description = description;
+    }
+    
+    public String getDescription(){
+        return description;
+    }
+    
+    
+    
 }
