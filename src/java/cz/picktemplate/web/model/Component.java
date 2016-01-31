@@ -1,5 +1,6 @@
 package cz.picktemplate.web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,6 +39,7 @@ public class Component implements Serializable {
     @NotNull
     private Integer complexity;
     
+    @JsonIgnore
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_component_group")
     private ComponentGroup componentGroup;

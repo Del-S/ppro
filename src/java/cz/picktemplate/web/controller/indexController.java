@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
@@ -31,7 +31,7 @@ public class indexController {
     @Autowired
     private ComponentGroupDAO componentGroupDAO;
     
-    private static final Logger logger = Logger.getLogger(componentController.class);
+    private static final Logger logger = Logger.getLogger(indexController.class);
     
     List<ComponentGroup> componentGroups;
     List<Template> templates;
@@ -64,17 +64,7 @@ public class indexController {
         model.addAttribute("componentGroups", componentGroups);
         model.addAttribute("templates", templates);
         return "index";
-    }
-    
-    @RequestMapping(value = {"/update_template_display"}, method = RequestMethod.POST, produces="application/json")
-    public @ResponseBody List<Template> update_template_display(@RequestBody String components) {
-        templates = templateDAO.getAllTemplates();
-        logger.info(components);
-        // Here will be call for get all templates by components
-        return templates;
-    }
-    
-    
+    }   
     
     @RequestMapping(value = {"/{id_template}/template_detail"}, method = RequestMethod.GET)
     public String detail_template(Model model, HttpServletRequest request, @PathVariable String id_template) {

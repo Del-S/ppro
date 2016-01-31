@@ -59,6 +59,35 @@ jQuery(document).ready(function( $ ) {
         }      
     });
     
+    // Ajax loader
+    function ajaxLoader (el, duration) {
+	// Becomes this.options
+	this.container 	= $(el);
+	
+	this.init = function() {
+            var container = this.container;
+            // Delete any other loaders
+            this.remove(); 
+            // Create the overlay 
+            var overlay = $('<div></div>').addClass('ajax_overlay');
+            // insert overlay and loader into DOM 
+            container.append(
+                overlay.append(
+                    $('<div></div>').addClass('ajax_loader')
+                ).fadeIn(duration)
+            );
+        };
+	this.remove = function(){
+            var overlay = this.container.children(".ajax_overlay");
+            if (overlay.length) {
+                overlay.fadeOut(false, function() {
+                    overlay.remove();
+                });
+            }	
+	}
+        this.init();
+    }   
+    
     // Ajax to update templates
     $('.filter-row').children("input[type=checkbox], .comp_checkbox_span").on("click", function() {
         // Add class and check checkbox
@@ -71,27 +100,53 @@ jQuery(document).ready(function( $ ) {
         }
         
         // Show updating value
+        var loader = new ajaxLoader($('#templates'), 500);
         
         // Send checked components to Ajax
         var components = [];
         $('.filter-row input[type=checkbox]').each(function() {
             if($(this).is(':checked')) { components.push($(this).val()); }
         });
-        var data_send = {"components": components };
+        //var data_send = { components };
         
         // Ajax call and update
         $.ajax({
-            type: "POST",
-            url: "update_template_display",
-            data: JSON.stringify(data_send),
-            dataType: 'json',
-            headers: { 
-                'Accept': 'application/json', 
-                'Content-Type': 'application/json' 
-            },
-            success: function(data){
-                 console.log('success');
-            }
-        });
-    });
+                url : "http://localhost:8080/ppro/update_template_display",
+                type : "POST",
+                traditional : true,
+                contentType : "application/json",
+                dataType : "json",
+                data : JSON.stringify(components),
+                headers: { 
+                    'Accept': 'application/json', 
+                    'Content-Type': 'application/json' 
+                }
+            }).done(function(templates) {
+                var html = "";
+                if($.trim(templates) == "") { html = '<p class="templates_empty">Žádné šablony neobsahují všechny vybrané komponenty</p>'; }
+                $(templates).each(function( k, template ) {
+                    var position = '';
+                    if( k % 4 === 0) { position = "first"; }
+                    if( (k+1) % 4 === 0 ) { position = "last"; }
+                    html += '<div class="template '+ position +'"> ' +
+                        '<div class="image-wrap"> ' +
+                            '<a href="/'+ template.id_template +'/template_detail" class="image"> ' +
+                                '<img src="#img_link" title="' + template.name + '" height="225px" width="225px" /> ' +
+                            '</a> ' +
+                        '</div> ' +
+                        '<div class="template_description"> ' +
+                            '<a href="/'+ template.id_template +'/template_detail">' + template.name + '</a> ' +
+                            '<p>'+ template.description.substring(0, 255) +'<p> ' +
+                        '</div> ' +
+                    '</div>';
+                });
+                
+                $(".template_wrap").html(html);
+            }).fail(function (response) {
+                console.log('Error loading templates.' + response.responseText);
+            });
+            
+        loader.remove();
+    });	
+
 });

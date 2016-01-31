@@ -42,6 +42,7 @@
                     
                     <div id="templates">
                         <h2>Šablony</h2>
+                        <div class="template_wrap clearfix">
                         <c:forEach var="template" items="${templates}" varStatus="count">
                             <div class="template ${ ((count.index mod 4) == 0) ? "first" : ""} ${(((count.index+1) mod 4) == 0) ? "last" : ""}">
                                 <div class="image-wrap">
@@ -55,6 +56,7 @@
                                 </div>
                             </div>  
                         </c:forEach>
+                        </div>
                     </div>
                     
                 </div>
