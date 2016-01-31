@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Čtv 28. led 2016, 01:04
+-- Vytvořeno: Ned 31. led 2016, 19:59
 -- Verze serveru: 5.6.16
 -- Verze PHP: 5.5.11
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `15pick12_address` (
   `city` varchar(255) NOT NULL,
   `postal_code` varchar(255) NOT NULL,
   PRIMARY KEY (`id_address`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Vypisuji data pro tabulku `15pick12_address`
@@ -55,16 +55,16 @@ CREATE TABLE IF NOT EXISTS `15pick12_component` (
   `description_link` varchar(255) NOT NULL,
   `complexity` int(11) DEFAULT '0',
   PRIMARY KEY (`id_component`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Vypisuji data pro tabulku `15pick12_component`
 --
 
 INSERT INTO `15pick12_component` (`id_component`, `id_component_group`, `name`, `description`, `description_link`, `complexity`) VALUES
-(9, 17, 'Test', 'Je tento web vhodný pro eshop?', '#', 0),
+(9, 14, 'Test', 'Je tento web vhodný pro eshop?', '#', 0),
 (12, 14, 'Core', 'Core', 'Coew', 0),
-(13, 14, 'Eshop', 'Eshop', 'asc', 0);
+(13, 17, 'Eshop', 'Eshop', 'asc', 0);
 
 -- --------------------------------------------------------
 
@@ -90,6 +90,27 @@ INSERT INTO `15pick12_component_group` (`id_component_group`, `name`, `descripti
 -- --------------------------------------------------------
 
 --
+-- Struktura tabulky `15pick12_gallery`
+--
+
+CREATE TABLE IF NOT EXISTS `15pick12_gallery` (
+  `id_gallery` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `id_thumbnail` bigint(255) DEFAULT NULL,
+  PRIMARY KEY (`id_gallery`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Vypisuji data pro tabulku `15pick12_gallery`
+--
+
+INSERT INTO `15pick12_gallery` (`id_gallery`, `name`, `description`, `id_thumbnail`) VALUES
+(2, 'Test', 's', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabulky `15pick12_image`
 --
 
@@ -98,8 +119,18 @@ CREATE TABLE IF NOT EXISTS `15pick12_image` (
   `image_src` varchar(255) NOT NULL,
   `image_alt` varchar(255) NOT NULL,
   `description` text NOT NULL,
+  `thumbnail_src` varchar(255) NOT NULL,
+  `id_gallery` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_image`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Vypisuji data pro tabulku `15pick12_image`
+--
+
+INSERT INTO `15pick12_image` (`id_image`, `image_src`, `image_alt`, `description`, `thumbnail_src`, `id_gallery`) VALUES
+(2, 'assets/uploads/12191774_10201104753138645_6762847735642819405_n.jpg', 'test', 'test', 'assets/uploads/thumbnail/12191774_10201104753138645_6762847735642819405_n.jpg', NULL),
+(3, 'assets/uploads/banner_elysees_znacky.png', 'sfd', 'dfbsd', 'assets/uploads/thumbnail/banner_elysees_znacky.png', 2);
 
 -- --------------------------------------------------------
 
@@ -117,14 +148,18 @@ CREATE TABLE IF NOT EXISTS `15pick12_template` (
   `price_editing` int(50) DEFAULT NULL,
   PRIMARY KEY (`id_template`),
   KEY `user_template` (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Vypisuji data pro tabulku `15pick12_template`
 --
 
 INSERT INTO `15pick12_template` (`id_template`, `id_gallery`, `id_user`, `name`, `description`, `price_implement`, `price_editing`) VALUES
-(1, 1, 1, 'Divi', 'Popis', 5, 5);
+(1, 2, 1, 'Divi', 'Popis', 5, 5),
+(2, 0, NULL, 'Extra', 'svv', 50, 5),
+(3, 0, NULL, 'Nexus', 'dfb', 5, 5),
+(4, 0, NULL, 'Fable', 'gg', 5, 5),
+(5, 0, NULL, 'Foxy', 'sdv', 5, 5);
 
 -- --------------------------------------------------------
 
@@ -137,14 +172,20 @@ CREATE TABLE IF NOT EXISTS `15pick12_template_components` (
   `id_template` bigint(20) NOT NULL,
   `id_component` bigint(20) NOT NULL,
   PRIMARY KEY (`id_template_components`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
 --
 -- Vypisuji data pro tabulku `15pick12_template_components`
 --
 
 INSERT INTO `15pick12_template_components` (`id_template_components`, `id_template`, `id_component`) VALUES
-(17, 1, 9);
+(23, 2, 9),
+(24, 2, 13),
+(30, 5, 13),
+(33, 3, 12),
+(34, 4, 9),
+(37, 1, 9),
+(38, 1, 12);
 
 -- --------------------------------------------------------
 
@@ -169,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `15pick12_user` (
   UNIQUE KEY `user_login` (`login`),
   UNIQUE KEY `token` (`token`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Vypisuji data pro tabulku `15pick12_user`
