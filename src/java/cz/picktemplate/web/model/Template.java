@@ -12,7 +12,7 @@ public class Template implements Serializable {
     @Column(name = "id_template")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_template;
-    private Integer id_gallery;
+    //private Integer id_gallery;
     private Integer id_user;    // Should be NotNull but it will not be used for now :)
     
     /* Can be changed to string */
@@ -33,9 +33,12 @@ public class Template implements Serializable {
         inverseJoinColumns={@JoinColumn(name="id_component", nullable = false, updatable = false)})
     private List<Component> components;
 
-    @OneToOne(cascade=CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="id_template")
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
+    @JoinColumn(name="id_gallery")
     private Gallery gallery;
+    
+    @Transient
+    private Image thumbnail;
     
     /*@OneToMany
     private List<UserRatings> user_ratings;*/
@@ -80,14 +83,6 @@ public class Template implements Serializable {
     public void setSimilar_templates(List<Template> similar_templates) {
         this.similar_templates = similar_templates;
     }*/
-
-    public Integer getId_gallery() {
-        return id_gallery;
-    }
-
-    public void setId_gallery(Integer id_gallery) {
-        this.id_gallery = id_gallery;
-    }
 
     public String getName() {
         return name;
@@ -151,5 +146,13 @@ public class Template implements Serializable {
 
     public void setGallery(Gallery gallery) {
         this.gallery = gallery;
+    }
+
+    public Image getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(Image thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

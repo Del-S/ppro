@@ -37,12 +37,12 @@
             </c:forEach>
             
             <fieldset>
-                <form:label path="id_gallery">id_gallery</form:label>
-                <form:select path="id_gallery">
-                    <form:option value="-1" label="--- Select ---"/>
+                <form:label path="gallery">id_gallery</form:label>
+                <form:select path="gallery">
+                    <form:option value="null" label="--- Select ---"/>
                     <form:options items="${galleries}" itemLabel="name" itemValue="id_gallery" />
                 </form:select>
-                <form:errors path="id_gallery" />
+                <form:errors path="gallery" />
             </fieldset>
             <input type="submit" value="Submit"/>
         </form:form>      

@@ -39,6 +39,7 @@ public class templateController {
     List<ComponentGroup> componentGroups;
     List<Gallery> galleries;
     private Map<String, Component> componentsMap = new HashMap<String, Component>();
+    private Map<String, Gallery> galleryMap = new HashMap<String, Gallery>();
     
     private static final Logger logger = Logger.getLogger(templateController.class);
     
@@ -63,6 +64,10 @@ public class templateController {
                 for( Component c : cg.getComponents() ) {
                     componentsMap.put(c.getId_component().toString(), c);
                 }
+            }
+            
+            for(Gallery g : galleries) {
+                galleryMap.put(g.getId_gallery().toString(), g);
             }
             
             model.addAttribute("template", new Template());
@@ -91,6 +96,10 @@ public class templateController {
                 for( Component c : cg.getComponents() ) {
                     componentsMap.put(c.getId_component().toString(), c);
                 }
+            }
+            
+            for(Gallery g : galleries) {
+                galleryMap.put(g.getId_gallery().toString(), g);
             }
             
             /* Maybe some better solution? */
@@ -157,6 +166,13 @@ public class templateController {
             public void setAsText(String id_components) {
                 Component component = componentsMap.get(id_components);
                 setValue((id_components.equals(""))?null:component);
+            }
+        });
+        binder.registerCustomEditor(Gallery.class, "gallery", new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String id_gallery) {
+                Gallery gallery = galleryMap.get(id_gallery);
+                setValue((id_gallery.equals(""))?null:gallery);
             }
         });
     }

@@ -12,14 +12,14 @@ Most voted templates will be displayed first in both approaches.
 In the first case it's possible to get 0 results for your component selection. But that should not be the case in the second approach.
 
 Current progress:
-- Form to add/create/trash templates
-- Template connection to components
+- Administration is complete.
+- Eshop style frontend
+- Images on front-end and fancybox
 
 Current issues:
-- Image and Gallery administration
-- Front-end basic styles
 - Fix UTF-8 encoding
 - User login + security
+- Core functions by voting
 
 # Dependencies
 

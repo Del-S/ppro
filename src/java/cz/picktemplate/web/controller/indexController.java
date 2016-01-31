@@ -14,11 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
@@ -31,13 +28,17 @@ public class indexController {
     @Autowired
     private ComponentGroupDAO componentGroupDAO;
     
+    @Autowired
+    private ImageDAO imageDAO;
+    
     private static final Logger logger = Logger.getLogger(indexController.class);
     
     List<ComponentGroup> componentGroups;
     List<Template> templates;
+    List<Image> images;
     private Map<String, Component> componentsMap = new HashMap<String, Component>();
     
-    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/index.html"}, method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request) {
         componentGroups = componentGroupDAO.getAllComponentGroups();
         templates = templateDAO.getAllTemplates();
@@ -51,7 +52,13 @@ public class indexController {
         }
         
         for( Template t : templates ) {
+            Hibernate.initialize(t.getGallery());
             Hibernate.initialize(t.getComponents());
+            Gallery gal = t.getGallery();
+            if( gal != null ) {
+                Integer id_thumbnail_gallery = gal.getId_thumbnail_gallery();
+                t.setThumbnail( imageDAO.getImagesById(id_thumbnail_gallery) );
+            }
         }
         
         // Static data and SEO
@@ -66,12 +73,20 @@ public class indexController {
         return "index";
     }   
     
-    @RequestMapping(value = {"/{id_template}/template_detail"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/template_detail/{id_template}/", "/template_detail/{id_template}/index"}, method = RequestMethod.GET)
     public String detail_template(Model model, HttpServletRequest request, @PathVariable String id_template) {
         try { 
             int templateId = Integer.parseInt(id_template);                
             Template template = templateDAO.getTemplateById(templateId);
-
+            images = null;
+            Image thumbnail = null;
+            Gallery gal = template.getGallery();
+            if(gal != null) { 
+                Hibernate.initialize(gal.getImages());
+                images = gal.getImages(); 
+                thumbnail = imageDAO.getImagesById(gal.getId_thumbnail_gallery());
+            }
+            
             // Get gallery
             String allComponents = "";
             for( Component c : template.getComponents() ) {
@@ -87,15 +102,16 @@ public class indexController {
             
             model.addAttribute("template", template); 
             model.addAttribute("allComponents", allComponents); 
-            model.addAttribute("gallery", "gallery here"); 
+            model.addAttribute("thumbnail", thumbnail);
+            model.addAttribute("images", images);            
             return "template_detail";
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return "redirect:index";
+        return "redirect:/index.html";
     }
     
-    @RequestMapping(value = {"/info"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/info/"}, method = RequestMethod.GET)
     public String info(Model model, HttpServletRequest request) {
         try {             
             // Static data and SEO
@@ -107,10 +123,10 @@ public class indexController {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return "redirect:index";
+        return "redirect:/index.html";
     }
     
-    @RequestMapping(value = {"/kontakt"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/kontakt/"}, method = RequestMethod.GET)
     public String kontakt(Model model, HttpServletRequest request) {
         try {             
             // Static data and SEO
@@ -122,6 +138,6 @@ public class indexController {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return "redirect:index";
+        return "redirect:/index.html";
     }
 }

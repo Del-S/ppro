@@ -25,12 +25,12 @@
                     <form:errors path="description" />
                 </fieldset>
                 <fieldset>
-                    <form:label path="id_thumbnail">id_thumbnail</form:label>
-                    <form:select path="id_thumbnail">
+                    <form:label path="id_thumbnail_gallery">id_thumbnail</form:label>
+                    <form:select path="id_thumbnail_gallery">
                         <form:option value="-1" label="--- Select ---"/>
                         <form:options items="${gallery.images}" itemLabel="image_alt" itemValue="id_image" />
                      </form:select>
-                    <form:errors path="id_thumbnail" />
+                    <form:errors path="id_thumbnail_gallery" />
                 </fieldset>
                 <input type="submit" value="Submit"/>
             </form:form>      

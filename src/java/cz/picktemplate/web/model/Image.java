@@ -35,9 +35,6 @@ public class Image implements Serializable {
     @Column
     private Integer id_gallery;
     
-    @Transient
-    private Integer form_id_gallery;
-    
     /* Required by Hibernate */
     public Image() {
     }
@@ -94,20 +91,12 @@ public class Image implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getThumbnail() {
+    public String getThumbnail_src() {
         return thumbnail_src;
     }
 
-    public void setThumbnail(String thumbnail_src) {
+    public void setThumbnail_src(String thumbnail_src) {
         this.thumbnail_src = thumbnail_src;
-    }
-
-    public Integer getForm_id_gallery() {
-        return form_id_gallery;
-    }
-
-    public void setForm_id_gallery(Integer form_id_gallery) {
-        this.form_id_gallery = form_id_gallery;
     }
 
     public Integer getId_gallery() {

@@ -154,32 +154,5 @@ public class galleryController{
             }
         });
     }
-    
-    
-    
-    private List<Integer> getID() {
-        
-        List<Image> images = imageDAO.getAllImages();
-        
-        List<Integer> id = new ArrayList<>();
-        for(Image im : images) {
-            id.add(im.getId_image());
-        } 
-        return id;
-    }
-    
-     private List<String> getSrc() {
-        
-        List<Image> images = imageDAO.getAllImages();
-        
-        List<String> imageSrc = new ArrayList<>();
-        for(Image image : images) {
-            imageSrc.add("../"+image.getThumbnail());
-        } 
-        return imageSrc;
-    }
-     private void updateImage (){
-         
-     }
-    }
+}
    

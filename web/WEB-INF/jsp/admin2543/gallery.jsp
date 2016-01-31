@@ -29,7 +29,7 @@
                             </div>   
                         </td>
                         <td><c:out value="${gallery.description}"/></td>
-                        <td><c:out value="${gallery.id_thumbnail}"/></td>
+                        <td><c:out value="${gallery.id_thumbnail_gallery}"/></td>
                     </tr>
                 </c:forEach>
             </tbody>

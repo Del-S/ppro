@@ -126,19 +126,23 @@ jQuery(document).ready(function( $ ) {
                 if($.trim(templates) == "") { html = '<p class="templates_empty">Žádné šablony neobsahují všechny vybrané komponenty</p>'; }
                 $(templates).each(function( k, template ) {
                     var position = '';
-                    if( k % 4 === 0) { position = "first"; }
+                    if( k % 4 === 0) { position = "first";  html += '<div class="template_row clearfix">'; }
                     if( (k+1) % 4 === 0 ) { position = "last"; }
+                    var img_link = "./assets/img/dummy_thumbnail.jpg";
+                    if( !$.isEmptyObject(template.thumbnail) ) { img_link = template.thumbnail.thumbnail_src; }
+                    
                     html += '<div class="template '+ position +'"> ' +
                         '<div class="image-wrap"> ' +
-                            '<a href="/'+ template.id_template +'/template_detail" class="image"> ' +
-                                '<img src="#img_link" title="' + template.name + '" height="225px" width="225px" /> ' +
+                            '<a href="./template_detail/'+ template.id_template +'/" class="image"> ' +
+                                '<img src="'+ img_link +'" title="' + template.name + '" height="225px" width="225px" /> ' +
                             '</a> ' +
                         '</div> ' +
                         '<div class="template_description"> ' +
-                            '<a href="/'+ template.id_template +'/template_detail">' + template.name + '</a> ' +
+                            '<a href="./template_detail/'+ template.id_template +'/">' + template.name + '</a> ' +
                             '<p>'+ template.description.substring(0, 255) +'<p> ' +
                         '</div> ' +
                     '</div>';
+                    if( (k+1) % 4 === 0 ) { html += '</div>'; }
                 });
                 
                 $(".template_wrap").html(html);
@@ -149,4 +153,7 @@ jQuery(document).ready(function( $ ) {
         loader.remove();
     });	
 
+
+    // Load fancybox
+    $(".fancybox").fancybox();
 });

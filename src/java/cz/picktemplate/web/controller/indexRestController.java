@@ -32,6 +32,9 @@ public class indexRestController {
     @Autowired
     private TemplateDAO templateDAO;
     
+    @Autowired
+    private ImageDAO imageDAO;
+    
     private static final Logger logger = Logger.getLogger(indexRestController.class);
     List<Template> allTemplates;
     
@@ -67,7 +70,12 @@ public class indexRestController {
             logger.info(components);
             
             for(Template t : outTemplates) {
-                logger.info(t.getName());
+                Hibernate.initialize(t.getGallery());
+                Gallery gal = t.getGallery();
+                if( gal != null ) {
+                    Integer id_thumbnail_gallery = gal.getId_thumbnail_gallery();
+                    t.setThumbnail( imageDAO.getImagesById(id_thumbnail_gallery) );
+                }
             }
             // Here will be call for get all templates by components
             return outTemplates;
