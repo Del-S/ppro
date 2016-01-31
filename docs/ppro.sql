@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Čtv 28. led 2016, 10:11
+-- Vytvořeno: Ned 31. led 2016, 10:07
 -- Verze serveru: 10.1.9-MariaDB
 -- Verze PHP: 5.6.15
 
@@ -62,7 +62,9 @@ CREATE TABLE `15pick12_component` (
 INSERT INTO `15pick12_component` (`id_component`, `id_component_group`, `name`, `description`, `description_link`, `complexity`) VALUES
 (9, 17, 'Test', 'Je tento web vhodný pro eshop?', '#', 0),
 (12, 14, 'Core', 'Core', 'Coew', 0),
-(13, 14, 'Eshop', 'Eshop', 'asc', 0);
+(13, 14, 'Eshop', 'Eshop', 'asc', 0),
+(14, 17, 'krajina', 'cccc', '#', 0),
+(15, 17, 'dd', 'dd', '#', 0);
 
 -- --------------------------------------------------------
 
@@ -87,11 +89,34 @@ INSERT INTO `15pick12_component_group` (`id_component_group`, `name`, `descripti
 -- --------------------------------------------------------
 
 --
+-- Struktura tabulky `15pick12_gallery`
+--
+
+CREATE TABLE `15pick12_gallery` (
+  `id_gallery` bigint(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` text,
+  `id_thumbnail` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Vypisuji data pro tabulku `15pick12_gallery`
+--
+
+INSERT INTO `15pick12_gallery` (`id_gallery`, `name`, `description`, `id_thumbnail`) VALUES
+(1, 'krajina', 'hhhh', 1),
+(2, 'sss', 'ss', 4),
+(3, 'krajina', 'ddd', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabulky `15pick12_image`
 --
 
 CREATE TABLE `15pick12_image` (
   `id_image` bigint(20) UNSIGNED NOT NULL,
+  `id_gallery` bigint(20) DEFAULT NULL,
   `image_src` varchar(255) NOT NULL,
   `image_alt` varchar(255) NOT NULL,
   `description` text NOT NULL,
@@ -102,8 +127,12 @@ CREATE TABLE `15pick12_image` (
 -- Vypisuji data pro tabulku `15pick12_image`
 --
 
-INSERT INTO `15pick12_image` (`id_image`, `image_src`, `image_alt`, `description`, `thumbnail_src`) VALUES
-(26, 'assets/uploads/krajina1.jpg', 'ee', 'ee', 'assets/uploads/thumbnail/krajina1.jpg');
+INSERT INTO `15pick12_image` (`id_image`, `id_gallery`, `image_src`, `image_alt`, `description`, `thumbnail_src`) VALUES
+(34, NULL, 'assets/uploads/krajina1.jpg', '1', '1', 'assets/uploads/thumbnail/krajina1.jpg'),
+(35, NULL, 'assets/uploads/krajina2.jpg', '2', '2', 'assets/uploads/thumbnail/krajina2.jpg'),
+(36, NULL, 'assets/uploads/krajina3.jpg', '3', '3', 'assets/uploads/thumbnail/krajina3.jpg'),
+(39, NULL, 'assets/uploads/krajina4.jpg', '4', '4', 'assets/uploads/thumbnail/krajina4.jpg'),
+(40, NULL, 'assets/uploads/krajina5.jpg', '5', '5', 'assets/uploads/thumbnail/krajina5.jpg');
 
 -- --------------------------------------------------------
 
@@ -126,7 +155,8 @@ CREATE TABLE `15pick12_template` (
 --
 
 INSERT INTO `15pick12_template` (`id_template`, `id_gallery`, `id_user`, `name`, `description`, `price_implement`, `price_editing`) VALUES
-(1, 1, 1, 'Divi', 'Popis', 5, 5);
+(1, 2, 1, 'Divi', 'Popis', 5, 5),
+(2, 1111, NULL, 'fff', 'fffff', 1000, 111);
 
 -- --------------------------------------------------------
 
@@ -145,7 +175,12 @@ CREATE TABLE `15pick12_template_components` (
 --
 
 INSERT INTO `15pick12_template_components` (`id_template_components`, `id_template`, `id_component`) VALUES
-(17, 1, 9);
+(18, 1, 12),
+(19, 1, 13),
+(20, 1, 9),
+(24, 2, 12),
+(25, 2, 13),
+(26, 2, 9);
 
 -- --------------------------------------------------------
 
@@ -199,6 +234,12 @@ ALTER TABLE `15pick12_component_group`
   ADD PRIMARY KEY (`id_component_group`);
 
 --
+-- Klíče pro tabulku `15pick12_gallery`
+--
+ALTER TABLE `15pick12_gallery`
+  ADD PRIMARY KEY (`id_gallery`);
+
+--
 -- Klíče pro tabulku `15pick12_image`
 --
 ALTER TABLE `15pick12_image`
@@ -239,27 +280,32 @@ ALTER TABLE `15pick12_address`
 -- AUTO_INCREMENT pro tabulku `15pick12_component`
 --
 ALTER TABLE `15pick12_component`
-  MODIFY `id_component` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_component` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT pro tabulku `15pick12_component_group`
 --
 ALTER TABLE `15pick12_component_group`
   MODIFY `id_component_group` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
+-- AUTO_INCREMENT pro tabulku `15pick12_gallery`
+--
+ALTER TABLE `15pick12_gallery`
+  MODIFY `id_gallery` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT pro tabulku `15pick12_image`
 --
 ALTER TABLE `15pick12_image`
-  MODIFY `id_image` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_image` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT pro tabulku `15pick12_template`
 --
 ALTER TABLE `15pick12_template`
-  MODIFY `id_template` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_template` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pro tabulku `15pick12_template_components`
 --
 ALTER TABLE `15pick12_template_components`
-  MODIFY `id_template_components` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_template_components` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT pro tabulku `15pick12_user`
 --
