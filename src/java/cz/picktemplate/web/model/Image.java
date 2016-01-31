@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -27,7 +28,16 @@ public class Image implements Serializable {
     
     @Column
     private String description;
-
+    
+    @Column
+    private String thumbnail_src;
+    
+    @Column
+    private Integer id_gallery;
+    
+    @Transient
+    private Integer form_id_gallery;
+    
     /* Required by Hibernate */
     public Image() {
     }
@@ -45,11 +55,11 @@ public class Image implements Serializable {
 
     @Override
     public int hashCode() {
-        final int prime = 32; 
-        int result = 2; 
+        final int prime = 35; 
+        int result = 1; 
         result = prime * result;
         result += ((id_image == null) ? 0 : id_image.hashCode());
-        result += ((image_src == null) ? 0 : image_src.hashCode());
+        result += ((image_alt == null) ? 0 : image_alt.hashCode());
         return result;
     }
     
@@ -84,4 +94,28 @@ public class Image implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+    public String getThumbnail() {
+        return thumbnail_src;
+    }
+
+    public void setThumbnail(String thumbnail_src) {
+        this.thumbnail_src = thumbnail_src;
+    }
+
+    public Integer getForm_id_gallery() {
+        return form_id_gallery;
+    }
+
+    public void setForm_id_gallery(Integer form_id_gallery) {
+        this.form_id_gallery = form_id_gallery;
+    }
+
+    public Integer getId_gallery() {
+        return id_gallery;
+    }
+
+    public void setId_gallery(Integer id_gallery) {
+        this.id_gallery = id_gallery;
+    }
+    
 }

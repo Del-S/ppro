@@ -1,0 +1,53 @@
+.BoxShadows(@shadow-pixels : 0 2px 5px; @shadow-color : rgba(0,0,0,.1)){
+    -webkit-box-shadow: @shadow-pixels @shadow-color; 
+       -moz-box-shadow: @shadow-pixels @shadow-color; 
+            box-shadow: @shadow-pixels @shadow-color;
+}
+
+.Transition(@transition) {
+    -webkit-transition: @transition;  
+       -moz-transition: @transition;
+        -ms-transition: @transition; 
+         -o-transition: @transition;  
+}
+
+.Animation(@animation) {
+    -webkit-animation: @animation;
+       -moz-animation: @animation;
+         -o-animation: @animation;
+            animation: @animation;
+    
+}
+
+.BoxSizing(@box-sizing) {
+    -webkit-box-sizing: @box-sizing;
+       -moz-box-sizing: @box-sizing;
+            box-sizing: @box-sizing;
+    
+}
+
+.BorderRadius(@top-left : 0, @top-right : 0, @bottom-left : 0, @bottom-right : 0) {  
+    -webkit-border-top-left-radius: @top-left;
+        -moz-border-radius-topleft: @top-left;
+            border-top-left-radius: @top-left;
+            
+    -webkit-border-top-right-radius: @top-right;
+        -moz-border-radius-topright: @top-right;
+            border-top-right-radius: @top-right;
+            
+    -webkit-border-bottom-left-radius: @bottom-left;
+        -moz-border-radius-bottomleft: @bottom-left;
+            border-bottom-left-radius: @bottom-left;
+            
+    -webkit-border-bottom-right-radius: @bottom-right;
+        -moz-border-radius-bottomright: @bottom-right;
+            border-bottom-right-radius: @bottom-right;
+}
+
+.Rotate(@deg : 0) {
+    -webkit-transform: rotate(@deg);
+       -moz-transform: rotate(@deg);
+        -ms-transform: rotate(@deg);
+         -o-transform: rotate(@deg);
+}
+    

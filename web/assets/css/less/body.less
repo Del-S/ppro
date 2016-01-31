@@ -1,0 +1,128 @@
+#wrap { padding-top: 80px; }
+
+#main-area {
+    min-height: 200px;
+    color: @darker-text-color;
+}
+
+// Header
+.fullwidth_header_dark {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: @color-basic;
+    padding: 25px 0;
+    width: @full-width;
+    color: @dark-text-color;
+    .container {
+        padding: 5px 0;        
+    }
+}
+
+.center_block {
+    margin: 0 auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+/* Sidebar */
+#sidebar {
+    float: left;
+    width: 250px;
+    padding: 7px;
+}
+
+// Sidebar title
+.component_group {
+    ul {
+        line-height: 2.2em;
+        margin: 6px 0 21px 0;
+        clear: both;
+    }
+}
+
+.component_group_heading {
+    border-bottom: 1px solid @color-lighter2-basic;
+    cursor: pointer;
+    padding-bottom: 6px; 
+    position: relative;
+    line-height: 14px;
+    &.collapsed i {
+        right: 5px;
+        top: 3px;
+        .Rotate(180deg);
+    }
+}
+
+.ico-arrow-up {
+    color: @color-lighter2-basic;
+    font-size: 1.1em;
+    line-height: .2em;
+    position: relative;
+    top: 9px;
+    right: 6px;
+    font-size: 17px;
+    &:before {
+        content: "^";   
+    }
+}
+
+.filter-row {
+    input[type="checkbox"] {
+        width: 16px;
+        height: 16px;  
+    }  
+}
+
+/* Tamplates */
+#templates {
+    float: right;
+    width: 77%;
+    padding: 5px;
+    position: relative;
+}
+
+.template {
+    border-right: 1px solid @color-lighter2-basic;
+    float: left;
+    padding: 0 5px 10px 5px;
+    width: 24%;
+    &.first { padding-left: 0; }
+    &.last { padding-right: 0; border-right: none; }
+}
+
+#template_detail {
+    #gallery { 
+        float: left; 
+        width: 500px;
+    }
+    
+    #template_content {
+        float: right;
+        width: 58%;
+    }
+}
+
+// Loader
+.ajax_overlay { 
+    background-color: @main-color;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:99999; 
+}
+.ajax_loader {background: url("../img/spinner_squares_circle.gif") no-repeat center center transparent;width:100%;height:100%;}

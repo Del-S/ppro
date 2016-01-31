@@ -29,8 +29,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Název</th>
-                    <th>Adresa</th>
+                    <th>Název obrázku</th>
+                    <th>Odkaz obrázku</th>
                     <th>Popis</th>
                 </tr>
             </thead>
@@ -51,7 +51,7 @@
                 </c:forEach>
             </tbody>
         </table>
-        </div>         
+        </div>
  
     </tiles:putAttribute>
 </tiles:insertDefinition>

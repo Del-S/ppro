@@ -1,0 +1,102 @@
+/* 
+Styles for: Pick Template
+Version: 0.1
+Front-end pallete: http://paletton.com/palette.php?uid=12P0u0kllllaFw0g0qFqFg0w0aF
+*/
+
+/* Colors */
+@main-color: white;
+@color-basic: #2D882D;
+@color-darker-basic: #116611;
+@color-darker2-basic: #004400;
+@color-lighter-basic: #55AA55;
+@color-lighter2-basic: #88CC88;
+@color-footer: #181818;
+@color-footer-text: white;
+
+@dark-text-color: white;
+@default-text-color: #666;
+@darker-text-color: #333;
+
+@color-link: @color-basic;
+@color-link-menu-hover: @color-lighter-basic;
+@color-link-hover: @color-darker-basic;
+
+@full-width: 100%;
+@container-width: 80%;
+@max-width: 1200px;
+
+/* Mixins */
+@import "mixins.less";
+
+/* Global */
+//Reset
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: @full-width;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body, input, textarea, select {
+    font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif;
+}
+
+body {
+    font-size: 14px;
+    color: @default-text-color;
+    line-height: 1.7em;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+    max-width: @full-width;
+    height: auto;
+}
+
+a {
+    color: @color-link;
+    text-decoration: underline;
+    &:hover { color: @color-link-hover; }  
+}
+
+ol, ul {
+    list-style: none;
+}
+
+.container {
+    text-align: left;
+    position: relative;
+    width: @container-width;
+    max-width: @max-width;
+    margin: auto;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+h1 {
+    line-height: 42px;
+    font-size: 42px;
+    font-weight: 900 !important;
+}
+
+/* Menu */
+@import "menu.less";
+
+/* Body */
+@import "body.less";
+
+/* Footer */
+@import "footer.less";

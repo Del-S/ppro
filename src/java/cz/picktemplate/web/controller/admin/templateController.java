@@ -36,7 +36,7 @@ public class templateController {
     List<ComponentGroup> componentGroups;
     private Map<String, Component> componentsMap = new HashMap<String, Component>();
     
-    private static final Logger logger = Logger.getLogger(componentController.class);
+    private static final Logger logger = Logger.getLogger(templateController.class);
     
     @RequestMapping(value = {"/admin2543/view_templates"}, method = RequestMethod.GET)
     public String view_templates(Model model) {
