@@ -34,7 +34,6 @@ public class imageController{
    
     @Autowired
     private ImageDAO imageDAO;
-    private int miniatura = 250;
     ImageIcon i;
     
         private static final Logger logger = LoggerFactory
@@ -151,4 +150,3 @@ public class imageController{
         return "redirect:view_images";
     }
     }
-   

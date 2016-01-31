@@ -8,5 +8,7 @@ public interface ImageDAO {
     void addImage(Image image);
     void updateImage(Image image);
     void deleteImage(Integer image_id);
-/* get adress, set adress etc */
+    
+    List<Image> getImagesByRow(String row, String operand, String stringArray);
+    void updateMultipleImage(List<Image> images);
 }

@@ -9,6 +9,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link rel="stylesheet" href="<spring:url value="/assets/css/admin.css" htmlEscape="true" />" type="text/css"/>
+  <script type="text/javascript" src="<spring:url value="/assets/js/jquery-1.12.0.min.js" htmlEscape="true" />"></script>
+  <script type="text/javascript" src="<spring:url value="/assets/js/admin.js" htmlEscape="true" />"></script>
   <title>Admin</title>	
 </head>
 
@@ -39,6 +41,11 @@
             <li><a href="<spring:url value="/admin2543/view_images" htmlEscape="true"/>">Obrázky</a>
                 <ul class="submenu">
                     <li><a href="<spring:url value="/admin2543/view_images" htmlEscape="true" />">Nahrát obrázek</a></li>
+                </ul>
+            </li>
+            <li><a href="<spring:url value="/admin2543/view_galleries" htmlEscape="true"/>">Galerie</a>
+                <ul class="submenu">
+                    <li><a href="<spring:url value="/admin2543/new_gallery" htmlEscape="true" />">Přidat galerii</a></li>
                 </ul>
             </li>
         </ul>

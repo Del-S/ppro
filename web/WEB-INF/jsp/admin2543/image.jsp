@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -29,8 +29,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Název</th>
-                    <th>Adresa</th>
+                    <th>Název obrázku</th>
+                    <th>Odkaz obrázku</th>
                     <th>Popis</th>
                 </tr>
             </thead>

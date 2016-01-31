@@ -3,6 +3,7 @@ import cz.picktemplate.web.model.Image;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,7 @@ public class ImageDaoImpl implements ImageDAO {
     @Override
     public List<Image> getAllImages() {
         return this.sessionFactory.getCurrentSession().createCriteria(Image.class).list();
-         }
+    }
 
     @Override
     public Image getImagesById(int id) {
@@ -38,5 +39,20 @@ public class ImageDaoImpl implements ImageDAO {
         if (null != image) {
             this.sessionFactory.getCurrentSession().delete(image);
         }    
+    }
+    @Override
+    public List<Image> getImagesByRow(String row, String operand , String stringArray) {
+        return this.sessionFactory.getCurrentSession().createCriteria(Image.class).add(Restrictions.sqlRestriction(row + " " + operand + " " + stringArray)).list();  
+    }
+
+    @Override
+    public void updateMultipleImage(List<Image> images) {
+        try {
+            for(Image image : images) { 
+                this.sessionFactory.getCurrentSession().update(image);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
