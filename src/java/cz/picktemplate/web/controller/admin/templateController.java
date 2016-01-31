@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 
 @Controller
-@SessionAttributes(value = {"template", "componentGroups"})
+@SessionAttributes(value = {"template", "componentGroups", "galleries"})
 @Transactional
 public class templateController {
     @Autowired
@@ -33,7 +33,11 @@ public class templateController {
     @Autowired
     private ComponentGroupDAO componentGroupDAO;
     
+    @Autowired
+    private GalleryDAO galleryDAO;
+    
     List<ComponentGroup> componentGroups;
+    List<Gallery> galleries;
     private Map<String, Component> componentsMap = new HashMap<String, Component>();
     
     private static final Logger logger = Logger.getLogger(templateController.class);
@@ -51,6 +55,7 @@ public class templateController {
         /* Convert in RequestParam is returning error 400 - better this way */
         try {
             componentGroups = componentGroupDAO.getAllComponentGroups();
+            galleries = galleryDAO.getAllGalleries();
             
             /* Load childs (maybe better solution?) */
             for( ComponentGroup cg : componentGroups ) {
@@ -62,6 +67,7 @@ public class templateController {
             
             model.addAttribute("template", new Template());
             model.addAttribute("componentGroups", componentGroups);
+            model.addAttribute("galleries", galleries);
             return "admin2543/new/template_new";
         } catch(Exception e) {
             e.printStackTrace();
@@ -76,6 +82,7 @@ public class templateController {
             int templateId = Integer.parseInt(tmpId);               
             Template template = templateDAO.getTemplateById(templateId);  
             componentGroups = componentGroupDAO.getAllComponentGroups();
+            galleries = galleryDAO.getAllGalleries();
             
             /* Load childs (maybe better solution?) */
             Hibernate.initialize(template.getComponents());
@@ -90,6 +97,7 @@ public class templateController {
             if(template.getId_template() == templateId) {
                 model.addAttribute("template", template);
                 model.addAttribute("componentGroups", componentGroups);
+                model.addAttribute("galleries", galleries);
                 return "admin2543/detail/template_detail";
             } 
         } catch(Exception e) {
