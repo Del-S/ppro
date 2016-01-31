@@ -41,6 +41,11 @@
                     <li><a href="<spring:url value="/admin2543/view_images" htmlEscape="true" />">Nahrát obrázek</a></li>
                 </ul>
             </li>
+            <li><a href="<spring:url value="/admin2543/view_galleries" htmlEscape="true"/>">Galerie</a>
+                <ul class="submenu">
+                    <li><a href="<spring:url value="/admin2543/new_gallery" htmlEscape="true" />">Přidat galerii</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
     

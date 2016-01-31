@@ -27,8 +27,7 @@
                 <form:label path="price_editing">price_editing</form:label>
                 <form:input path="price_editing" />
                 <form:errors path="price_editing" />
-            </fieldset>
-            
+            </fieldset>   
             <c:forEach var="componentGroup" items="${componentGroups}">
                 <fieldset>
                     <legend>${componentGroup.name}</legend>
