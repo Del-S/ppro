@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Ned 31. led 2016, 10:07
+-- Vytvořeno: Pon 01. úno 2016, 08:20
 -- Verze serveru: 10.1.9-MariaDB
 -- Verze PHP: 5.6.15
 
@@ -38,7 +38,8 @@ CREATE TABLE `15pick12_address` (
 --
 
 INSERT INTO `15pick12_address` (`id_address`, `address`, `city`, `postal_code`) VALUES
-(3, 'a', 'a', 'tets');
+(3, 'a', 'a', 'tets'),
+(4, 'Trebihostska 207', 'Trebihost', '54401');
 
 -- --------------------------------------------------------
 
@@ -60,11 +61,9 @@ CREATE TABLE `15pick12_component` (
 --
 
 INSERT INTO `15pick12_component` (`id_component`, `id_component_group`, `name`, `description`, `description_link`, `complexity`) VALUES
-(9, 17, 'Test', 'Je tento web vhodný pro eshop?', '#', 0),
+(9, 14, 'Test', 'Je tento web vhodný pro eshop?', '#', 0),
 (12, 14, 'Core', 'Core', 'Coew', 0),
-(13, 14, 'Eshop', 'Eshop', 'asc', 0),
-(14, 17, 'krajina', 'cccc', '#', 0),
-(15, 17, 'dd', 'dd', '#', 0);
+(13, 17, 'Eshop', 'Eshop', 'asc', 0);
 
 -- --------------------------------------------------------
 
@@ -94,19 +93,18 @@ INSERT INTO `15pick12_component_group` (`id_component_group`, `name`, `descripti
 
 CREATE TABLE `15pick12_gallery` (
   `id_gallery` bigint(20) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `description` text,
-  `id_thumbnail` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `id_thumbnail` bigint(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Vypisuji data pro tabulku `15pick12_gallery`
 --
 
 INSERT INTO `15pick12_gallery` (`id_gallery`, `name`, `description`, `id_thumbnail`) VALUES
-(1, 'krajina', 'hhhh', 1),
-(2, 'sss', 'ss', 4),
-(3, 'krajina', 'ddd', 0);
+(2, 'Test', 's', 3),
+(9, 'dd', 'ddd', 2);
 
 -- --------------------------------------------------------
 
@@ -116,23 +114,21 @@ INSERT INTO `15pick12_gallery` (`id_gallery`, `name`, `description`, `id_thumbna
 
 CREATE TABLE `15pick12_image` (
   `id_image` bigint(20) UNSIGNED NOT NULL,
-  `id_gallery` bigint(20) DEFAULT NULL,
   `image_src` varchar(255) NOT NULL,
   `image_alt` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `thumbnail_src` varchar(50) NOT NULL
+  `thumbnail_src` varchar(255) NOT NULL,
+  `id_gallery` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Vypisuji data pro tabulku `15pick12_image`
 --
 
-INSERT INTO `15pick12_image` (`id_image`, `id_gallery`, `image_src`, `image_alt`, `description`, `thumbnail_src`) VALUES
-(34, NULL, 'assets/uploads/krajina1.jpg', '1', '1', 'assets/uploads/thumbnail/krajina1.jpg'),
-(35, NULL, 'assets/uploads/krajina2.jpg', '2', '2', 'assets/uploads/thumbnail/krajina2.jpg'),
-(36, NULL, 'assets/uploads/krajina3.jpg', '3', '3', 'assets/uploads/thumbnail/krajina3.jpg'),
-(39, NULL, 'assets/uploads/krajina4.jpg', '4', '4', 'assets/uploads/thumbnail/krajina4.jpg'),
-(40, NULL, 'assets/uploads/krajina5.jpg', '5', '5', 'assets/uploads/thumbnail/krajina5.jpg');
+INSERT INTO `15pick12_image` (`id_image`, `image_src`, `image_alt`, `description`, `thumbnail_src`, `id_gallery`) VALUES
+(2, 'assets/uploads/12191774_10201104753138645_6762847735642819405_n.jpg', 'test', 'test', 'assets/uploads/thumbnail/12191774_10201104753138645_6762847735642819405_n.jpg', NULL),
+(3, 'assets/uploads/banner_elysees_znacky.png', 'sfd', 'dfbsd', 'assets/uploads/thumbnail/banner_elysees_znacky.png', 2),
+(5, 'assets/uploads/krajina2.jpg', 'ddd', 'ddd', 'assets/uploads/thumbnail/krajina2.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -156,7 +152,10 @@ CREATE TABLE `15pick12_template` (
 
 INSERT INTO `15pick12_template` (`id_template`, `id_gallery`, `id_user`, `name`, `description`, `price_implement`, `price_editing`) VALUES
 (1, 2, 1, 'Divi', 'Popis', 5, 5),
-(2, 1111, NULL, 'fff', 'fffff', 1000, 111);
+(2, 0, NULL, 'Extra', 'svv', 50, 5),
+(3, 0, NULL, 'Nexus', 'dfb', 5, 5),
+(4, 0, NULL, 'Fable', 'gg', 5, 5),
+(5, 0, NULL, 'Foxy', 'sdv', 5, 5);
 
 -- --------------------------------------------------------
 
@@ -175,12 +174,13 @@ CREATE TABLE `15pick12_template_components` (
 --
 
 INSERT INTO `15pick12_template_components` (`id_template_components`, `id_template`, `id_component`) VALUES
-(18, 1, 12),
-(19, 1, 13),
-(20, 1, 9),
-(24, 2, 12),
-(25, 2, 13),
-(26, 2, 9);
+(23, 2, 9),
+(24, 2, 13),
+(30, 5, 13),
+(33, 3, 12),
+(34, 4, 9),
+(37, 1, 9),
+(38, 1, 12);
 
 -- --------------------------------------------------------
 
@@ -209,7 +209,8 @@ CREATE TABLE `15pick12_user` (
 
 INSERT INTO `15pick12_user` (`id_user`, `id_address`, `login`, `name`, `surname`, `email`, `password`, `salt`, `website`, `phone`, `rights`, `token`) VALUES
 (1, 0, 'admin', 'admin', 'admin', 'test@test.czs', 'test', 'admin', 'admin', '123', 5, ''),
-(5, 3, 'test', 'test', 'test', 'a@a.cz', '8baabfa7979b17fb6146ab9037838ccf4d6bd96017fe6c00ecac6ac0bffd3d42', 'f^URtg7AD(nyK.BH]V_Oc,=xm5>@5aggC>eDQ7zO;X=QTQ@vKj', 'web', '123456', 0, 'xeE9VRGY9zA3RbUMaaF36kFwhz7JNA2B');
+(5, 3, 'test', 'test', 'test', 'a@a.cz', '8baabfa7979b17fb6146ab9037838ccf4d6bd96017fe6c00ecac6ac0bffd3d42', 'f^URtg7AD(nyK.BH]V_Oc,=xm5>@5aggC>eDQ7zO;X=QTQ@vKj', 'web', '123456', 0, 'xeE9VRGY9zA3RbUMaaF36kFwhz7JNA2B'),
+(6, 4, 'martas025', 'martin', 'kulhanek', 'm@seznma.cz', '9394c63db84f197a9c17a00d394f3b0d0cfd8fba4454e3dd8c7a1dbab4e5db7', 'vmZ^PE:&hCZXDVH(ld9EcjtGH1*7XXaUy]y=A<LI[%)KU<^$Nn', 'trebihost.cz', '7765553214', 0, 'UJhe4trkcRX5RaX4rF0R3O6mdN1Q330d');
 
 --
 -- Klíče pro exportované tabulky
@@ -275,12 +276,12 @@ ALTER TABLE `15pick12_user`
 -- AUTO_INCREMENT pro tabulku `15pick12_address`
 --
 ALTER TABLE `15pick12_address`
-  MODIFY `id_address` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_address` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pro tabulku `15pick12_component`
 --
 ALTER TABLE `15pick12_component`
-  MODIFY `id_component` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_component` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT pro tabulku `15pick12_component_group`
 --
@@ -290,27 +291,27 @@ ALTER TABLE `15pick12_component_group`
 -- AUTO_INCREMENT pro tabulku `15pick12_gallery`
 --
 ALTER TABLE `15pick12_gallery`
-  MODIFY `id_gallery` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_gallery` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT pro tabulku `15pick12_image`
 --
 ALTER TABLE `15pick12_image`
-  MODIFY `id_image` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_image` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pro tabulku `15pick12_template`
 --
 ALTER TABLE `15pick12_template`
-  MODIFY `id_template` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_template` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pro tabulku `15pick12_template_components`
 --
 ALTER TABLE `15pick12_template_components`
-  MODIFY `id_template_components` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_template_components` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT pro tabulku `15pick12_user`
 --
 ALTER TABLE `15pick12_user`
-  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Omezení pro exportované tabulky
 --
