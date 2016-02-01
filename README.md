@@ -15,9 +15,9 @@ Current progress:
 - Administration is complete.
 - Eshop style frontend
 - Images on front-end and fancybox
+- Fixed UTF-8 encoding
 
 Current issues:
-- Fix UTF-8 encoding
 - User login + security
 - Core functions by voting
 

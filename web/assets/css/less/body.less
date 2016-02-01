@@ -40,7 +40,7 @@
 #sidebar {
     float: left;
     width: 250px;
-    padding: 7px;
+    padding: 15px 7px;
 }
 
 // Sidebar title
@@ -51,6 +51,8 @@
         clear: both;
     }
 }
+
+.comp_checkbox_span { cursor: pointer; }
 
 .component_group_heading {
     border-bottom: 1px solid @color-lighter2-basic;
@@ -89,8 +91,12 @@
 #templates {
     float: right;
     width: 77%;
-    padding: 5px;
+    padding: 10px 5px;
     position: relative;
+}
+
+.template_wrap {
+    padding: 15px 0;    
 }
 
 .template_row {
@@ -100,16 +106,47 @@
 .template {
     border-right: 1px solid @color-lighter2-basic;
     float: left;
-    padding: 0 5px 10px 5px;
+    padding: 10px 5px 10px 5px;
     width: 24%;
     &.first { padding-left: 0; }
     &.last { padding-right: 0; border-right: none; }
+    .template_description {
+        a.template_name { 
+            margin: 5px 0 10px 0;
+            display: block;
+            line-height: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        h2 { 
+            line-height: 16px;
+            font-size: 16px;
+            margin: 0; 
+        }
+    }
 }
 
 #template_detail {
-    #gallery { 
+    padding: 15px 0;
+    #gallery_wrap { 
         float: left; 
         width: 500px;
+        #gallery {
+            a {
+                display: block;
+                text-decoration: none;
+                width: 100px;
+                height: 100px;
+                overflow: hidden;
+                float: left;
+                margin: 0 13px;
+                img { 
+                    max-width: 100px;
+                }
+                &:first-child { margin-left: 0; }
+                &:last-child { margin-right: 0; }
+            }
+        }
     }
     
     #template_content {

@@ -27,11 +27,11 @@
                     </c:choose>
                     
                     <c:if test="${not empty images}">
-                        <div id="gallery">
+                        <div id="gallery" class="clearfix">
                             <c:forEach var="image" items="${images}" varStatus="count">
                                 <c:if test="${ !(image.id_image == thumbnail.id_image) }">
                                     <a href="<spring:url value="/${image.image_src}" htmlEscape="true" />" class="fancybox" rel="template" >
-                                        <img src="<spring:url value="/${image.thumbnail_src}" htmlEscape="true" />" title="${image.image_alt}" height="70px" width="70px" />
+                                        <img src="<spring:url value="/${image.thumbnail_src}" htmlEscape="true" />" title="${image.image_alt}" height="100px" width="100px" />
                                     </a>
                                 </c:if>
                             </c:forEach>

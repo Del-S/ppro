@@ -1,20 +1,18 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<tiles:insertDefinition name="adminDefinition">
-    <tiles:putAttribute name="body">
-  
-        <h1>Login</h1>
-
-        TODOOO
-        <form:form id="loginForm" name="loginForm" method="post" >
-            <form:label path="username">Login: </form:label>
-            <form:input id="username" name="username" path="username" /><br>
-            <form:label path="username">Password: </form:label>
-            <form:password id="password" name="password" path="password" /><br>
-            <input type="submit" value="Submit" />
-        </form:form>  
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<html>
+<body>
+    <div class="login">
+      <h1>Admin login</h1>
+  <form:form name="user" method="post">
+      <table>
+      <tr><th>login:</th><th><input type="text" name="name"> <br/></th></tr>
+      <tr><th>password :</th><th><input type="password" name="pwd"/><br/></th></tr>
+      <div style="color:red">${error}</div>
+      <tr><th></th><th><input type="submit" value="Login"></th></tr>
+      </table>
+  </form:form>
+    </div>
+</body>
+</html>
  
-    </tiles:putAttribute>
-</tiles:insertDefinition>
+

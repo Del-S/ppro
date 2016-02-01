@@ -13,7 +13,7 @@
                 <th>ID</th>
                 <th>Název</th>
                 <th>Popis</th>
-                <th>Uživatel</th>
+                <th>Galerie</th>
             </tr>
         </thead>
             <c:forEach items="${templates}" var="template">
@@ -27,7 +27,11 @@
                         </div>   
                     </td>
                     <td>${fn:substring(template.description, 0, 255)}....</td>
-                    <td><c:out value="${template.id_user}"/></td>
+                    <td>
+                        <c:if test="${not empty template.gallery}">
+                            ${template.gallery.name}
+                        </c:if>
+                    </td>
                 </tr>
             </c:forEach>
         </table>       

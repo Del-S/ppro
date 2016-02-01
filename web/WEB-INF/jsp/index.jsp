@@ -59,7 +59,7 @@
                                     </a>
                                 </div>
                                 <div class="template_description">
-                                    <a href="<spring:url value="/template_detail/${template.id_template}/" htmlEscape="true" />">${template.name}</a>
+                                    <a href="<spring:url value="/template_detail/${template.id_template}/" htmlEscape="true" />" class="template_name">${template.name}</a>
                                     <p>${fn:substring(template.description, 0, 255)}<p>
                                 </div>
                             </div> 
