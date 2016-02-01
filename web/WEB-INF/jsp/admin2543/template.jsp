@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <tiles:insertDefinition name="adminDefinition">
     <tiles:putAttribute name="body">
   
@@ -25,7 +26,7 @@
                             <span class="delete"><a class="btn-trash" href="./trash_template?tmp=${template.id_template}">Odstranit</a></span> 
                         </div>   
                     </td>
-                    <td><c:out value="${template.description}"/></td>
+                    <td>${fn:substring(template.description, 0, 255)}....</td>
                     <td><c:out value="${template.id_user}"/></td>
                 </tr>
             </c:forEach>
