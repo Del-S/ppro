@@ -7,14 +7,14 @@
   
         <h1>Galerie</h1>
         
-        <div class="col-right">
+        <div class="fullwidth">
         <table class="list-table widefat">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Název</th>
                     <th>Popis</th>
-                    <th>ID_Obrázku</th>
+                    <th>Thumbnail id</th>
                 </tr>
             </thead>
             <tbody>

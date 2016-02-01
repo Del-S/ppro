@@ -12,10 +12,6 @@
                     <form:input path="image_alt" />
                 </fieldset>
                 <fieldset>
-                    <form:label path="image_src">image_src</form:label>
-                    <form:input path="image_src" />
-                </fieldset>
-                <fieldset>
                     <form:label path="description">description</form:label>
                     <form:textarea path="description" />
                 </fieldset>

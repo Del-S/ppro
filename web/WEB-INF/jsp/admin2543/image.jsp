@@ -29,9 +29,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Název</th>
-                    <th>ID_alba</th>
-                    <th>Adresa</th>
+                    <th>Název obrázku</th>
+                    <th>Odkaz obrázku</th>
                     <th>Popis</th>
                 </tr>
             </thead>
@@ -46,7 +45,6 @@
                                 <span class="delete"><a class="btn-trash" href="./trash_image?image=${image.id_image}">Odstranit</a></span> 
                             </div>   
                         </td>
-                        <td><c:out value="${image.gallery.id_gallery}"/></td>
                         <td><c:out value="${image.image_src}"/></td>
                         <td><c:out value="${image.description}"/></td>
                     </tr>

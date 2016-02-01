@@ -27,7 +27,8 @@
                 <form:label path="price_editing">price_editing</form:label>
                 <form:input path="price_editing" />
                 <form:errors path="price_editing" />
-            </fieldset>   
+            </fieldset>
+            
             <c:forEach var="componentGroup" items="${componentGroups}">
                 <fieldset>
                     <legend>${componentGroup.name}</legend>
@@ -37,7 +38,10 @@
             
             <fieldset>
                 <form:label path="id_gallery">id_gallery</form:label>
-                <form:input path="id_gallery" />
+                <form:select path="id_gallery">
+                    <form:option value="-1" label="--- Select ---"/>
+                    <form:options items="${galleries}" itemLabel="name" itemValue="id_gallery" />
+                </form:select>
                 <form:errors path="id_gallery" />
             </fieldset>
             <input type="submit" value="Submit"/>

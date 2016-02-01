@@ -12,18 +12,24 @@
                 <fieldset>
                     <form:label path="name">name</form:label>
                     <form:input path="name" />
+                    <form:errors path="name" />
                 </fieldset>  
                 <fieldset>
                     <form:label path="images">images</form:label>
-                    <form:checkboxes path="images" items="${images}" />
+                    <form:checkboxes path="images" items="${images}" itemLabel="image_alt" itemValue="id_image"/>
+                    <form:errors path="images" />
                 </fieldset>
                 <fieldset>
                     <form:label path="description">description</form:label>
                     <form:textarea path="description" />
+                    <form:errors path="description" />
                 </fieldset>
                 <fieldset>
                     <form:label path="id_thumbnail">id_thumbnail</form:label>
-                    <form:input path="id_thumbnail" />
+                    <form:select path="id_thumbnail">
+                        <form:option value="-1" label="--- Select ---"/>
+                    </form:select>
+                    <form:errors path="id_thumbnail" />
                 </fieldset>
                 <input type="submit" value="Submit"/>
             </form:form>  
