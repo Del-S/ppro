@@ -38,7 +38,7 @@ public class indexController {
     List<Image> images;
     private Map<String, Component> componentsMap = new HashMap<String, Component>();
     
-    @RequestMapping(value = {"/", "/index.html"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/index.html", "/pick_template_eshop", "/pick_template_eshop/"}, method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request) {
         componentGroups = componentGroupDAO.getAllComponentGroups();
         templates = templateDAO.getAllTemplates();

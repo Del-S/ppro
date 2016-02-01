@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <tiles:insertDefinition name="adminDefinition">
     <tiles:putAttribute name="body">
-  
+        
         <h1>Skupina komponent: ${componentGroup.name}</h1>
 
         <div class="col-left">

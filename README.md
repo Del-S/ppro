@@ -30,6 +30,7 @@ Main dependencies:
 - Apache Tiles 3.0.5
 - Commons Fileupload 1.3
 - Commons IO 1.1
+- FasterXML Jackson (annotations, core, databind)
 
 Optional Dependencies:
 - Commons-beanutils 1.8
