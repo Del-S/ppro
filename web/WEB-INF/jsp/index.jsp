@@ -55,7 +55,7 @@
                                         <c:if test="${not empty template.thumbnail}">
                                             <c:set var="thumbnail_src" value="${template.thumbnail.thumbnail_src}" />
                                         </c:if>
-                                        <img src="${thumbnail_src}" title="${template.name}" height="225px" width="225px" />        
+                                        <img src="<spring:url value="/${thumbnail_src}" htmlEscape="true" />" title="${template.name}" height="225px" width="225px" />        
                                     </a>
                                 </div>
                                 <div class="template_description">
