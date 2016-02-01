@@ -16,7 +16,7 @@ public class ImageDaoImpl implements ImageDAO {
     @Override
     public List<Image> getAllImages() {
         return this.sessionFactory.getCurrentSession().createCriteria(Image.class).list();
-         }
+    }
 
     @Override
     public Image getImagesById(int id) {
@@ -42,7 +42,7 @@ public class ImageDaoImpl implements ImageDAO {
     }
     @Override
     public List<Image> getImagesByRow(String row, String operand , String stringArray) {
-        return this.sessionFactory.getCurrentSession().createCriteria(Image.class).add(Restrictions.sqlRestriction(row + " " + operand + " (" + stringArray + ")")).list();  
+        return this.sessionFactory.getCurrentSession().createCriteria(Image.class).add(Restrictions.sqlRestriction(row + " " + operand + " " + stringArray)).list();  
     }
 
     @Override

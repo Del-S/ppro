@@ -33,6 +33,10 @@ public class Template implements Serializable {
         inverseJoinColumns={@JoinColumn(name="id_component", nullable = false, updatable = false)})
     private List<Component> components;
 
+    @OneToOne(cascade=CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="id_template")
+    private Gallery gallery;
+    
     /*@OneToMany
     private List<UserRatings> user_ratings;*/
     
@@ -139,5 +143,13 @@ public class Template implements Serializable {
 
     public void setId_user(Integer id_user) {
         this.id_user = id_user;
+    }
+
+    public Gallery getGallery() {
+        return gallery;
+    }
+
+    public void setGallery(Gallery gallery) {
+        this.gallery = gallery;
     }
 }

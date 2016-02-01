@@ -2,6 +2,7 @@ package cz.picktemplate.web.controller.admin;
 import cz.picktemplate.web.model.*;
 import cz.picktemplate.web.model.dao.GalleryDAO;
 import cz.picktemplate.web.model.dao.ImageDAO;
+import java.beans.PropertyEditorSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,9 +21,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.context.request.WebRequest;
 
 @Controller
-@SessionAttributes(value = {"image","gallery"})
+@SessionAttributes(value = {"images","gallery"})
 @Transactional
 public class galleryController{
    
@@ -32,13 +37,10 @@ public class galleryController{
     private GalleryDAO galleryDAO;
     
     ImageIcon i;
-    
     List<Image> images;
-    private Map<String, Component> imagesMap = new HashMap<String, Component>();
+    Map<String, Image> imageMap;
     
-    
-        private static final Logger logger = LoggerFactory
-            .getLogger(imageController.class);
+    private static final Logger logger = LoggerFactory.getLogger(galleryController.class);
     
     @RequestMapping(value = {"/admin2543/view_galleries"}, method = RequestMethod.GET)
     public String view_galleries(Model model) {
@@ -47,6 +49,7 @@ public class galleryController{
         model.addAttribute("galleries", galleries);
         return "/admin2543/gallery";
     }
+    
     @RequestMapping(value = {"/admin2543/trash_gallery"}, method = RequestMethod.GET)
     public String trash_gallery(Model model, @RequestParam(value = "gallery", required = false, defaultValue = "-1") final String galleryID) {
         /* Convert in RequestParam is returning error 400 - better this way */
@@ -59,30 +62,44 @@ public class galleryController{
         }
         return "redirect:view_galleries";
     }
+    
     @RequestMapping(value = {"/admin2543/detail_gallery"}, method = RequestMethod.GET)
-    public String detail_gallery(Model model, @RequestParam(value = "gallery", required = false, defaultValue = "-1") final String galleryId) {
+    public String detail_gallery(Model model, @RequestParam(value = "gallery", required = false, defaultValue = "-1") final String galId) {
         /* Convert in RequestParam is returning error 400 - better this way */
         try {
-            Integer galleryyId = Integer.parseInt(galleryId);               
-            Gallery gallery = galleryDAO.getGalleryById(galleryyId);
+            Integer galleryId = Integer.parseInt(galId);               
+            Gallery gallery = galleryDAO.getGalleryById(galleryId);
+            images = imageDAO.getImagesByRow("id_gallery", "is", "NULL");
+            images.addAll(gallery.getImages());
+            this.getImagesMap();
+            
             /* Maybe some better solution? */
-            if(galleryyId.equals(gallery.getId_gallery())) {
+            if(galleryId.equals(gallery.getId_gallery())) {
                 model.addAttribute("gallery", gallery);
+                model.addAttribute("images", images);
                 return "admin2543/detail/gallery_detail";
-            } else { 
-                return "redirect:view_galleries";
             }
         } catch(Exception e) {
             e.printStackTrace();
-            return "redirect:view_galleries";
         }
+        return "redirect:view_galleries";
     }
+    
     @RequestMapping(value = {"/admin2543/update_gallery"}, method = RequestMethod.POST)
-    public String update_template(Model model, @Valid @ModelAttribute("gallery")Gallery gallery) {
+    public String update_template(Model model, @Valid @ModelAttribute("gallery")Gallery gallery, BindingResult result) {
         try {
+            for(Image i : gallery.getImages()) {
+                logger.info(i.getImage_alt().toString());
+            }
+            
+            /* Return with errors */
+            if(result.hasErrors()) { 
+                //logger.error(result.getAllErrors());   
                 model.addAttribute("gallery", gallery);
-                galleryDAO.updateGallery(gallery);
                 return "admin2543/detail/gallery_detail";
+            }
+            
+            galleryDAO.updateGallery(gallery);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -90,42 +107,56 @@ public class galleryController{
     }
 
     @RequestMapping(value = {"/admin2543/add_gallery"}, method = RequestMethod.POST)
-    public String add_component(Model model, @Valid @ModelAttribute("gallery")Gallery gallery) {
+    public String add_component(Model model, @Valid @ModelAttribute("gallery")Gallery gallery, BindingResult result) {
         try { 
-            
-            List<Gallery> galleries = galleryDAO.getAllGalleries();
+            /* Return with errors */
+            if(result.hasErrors()) { 
+                //logger.error(result.getAllErrors());   
                 model.addAttribute("gallery", gallery);
-                model.addAttribute("galleries", galleries);
-                model.addAttribute("images", this.getImagesName());
-                //model.addAttribute("images", this.getSrc());
-                
+                return "admin2543/new/gallery_new";
+            }
+
             galleryDAO.addGallery(gallery);
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return "redirect:view_gallery";
+        return "redirect:view_galleries";
     }
+    
     @RequestMapping(value = {"/admin2543/new_gallery"}, method = RequestMethod.GET)
     public String new_gallery(Model model) {
         /* Convert in RequestParam is returning error 400 - better this way */
-             List<Gallery> galleries = galleryDAO.getAllGalleries();
-             
-             model.addAttribute("gallery", new Gallery());
-             model.addAttribute("galleries", galleries);
-             model.addAttribute("images", this.getImagesName());
-            return "admin2543/new/gallery_new";
+        images = imageDAO.getImagesByRow("id_gallery", "is", "NULL");
+        this.getImagesMap();
+        
+        
+        model.addAttribute("gallery", new Gallery());
+        model.addAttribute("images", images);
+        return "admin2543/new/gallery_new";
     }
     
     /* Non-mapping functions */
-    private Map<Integer, String> getImagesName() {
-        List<Image> images = imageDAO.getAllImages();
-        
-        Map<Integer, String> imageNames = new LinkedHashMap<Integer, String>();
+    private Map<String, Image> getImagesMap() {        
+        imageMap = new LinkedHashMap<String, Image>();
         for(Image img : images) {
-            imageNames.put(img.getId_image(), img.getImage_alt());
+            imageMap.put(img.getId_image().toString(), img);
         } 
-        return imageNames;
+        return imageMap;
     }
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder, WebRequest request) {
+        binder.registerCustomEditor(Image.class, "images", new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String id_images) {
+                Image image = imageMap.get(id_images);
+                setValue((id_images.equals(""))?null:image);
+            }
+        });
+    }
+    
+    
+    
     private List<Integer> getID() {
         
         List<Image> images = imageDAO.getAllImages();

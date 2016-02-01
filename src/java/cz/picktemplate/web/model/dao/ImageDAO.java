@@ -11,5 +11,4 @@ public interface ImageDAO {
     
     List<Image> getImagesByRow(String row, String operand, String stringArray);
     void updateMultipleImage(List<Image> images);
-/* get adress, set adress etc */
 }

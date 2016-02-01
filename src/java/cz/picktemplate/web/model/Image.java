@@ -1,14 +1,11 @@
 package cz.picktemplate.web.model;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -34,14 +31,12 @@ public class Image implements Serializable {
     
     @Column
     private String thumbnail_src;
-
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "id_gallery")
-    private Gallery gallery;
+    
+    @Column
+    private Integer id_gallery;
     
     @Transient
     private Integer form_id_gallery;
-    
     
     /* Required by Hibernate */
     public Image() {
@@ -106,13 +101,6 @@ public class Image implements Serializable {
     public void setThumbnail(String thumbnail_src) {
         this.thumbnail_src = thumbnail_src;
     }
-    public Gallery getGallery() {
-        return gallery;
-    }
-
-    public void setgallery(Gallery gallery) {
-        this.gallery = gallery;
-    }
 
     public Integer getForm_id_gallery() {
         return form_id_gallery;
@@ -120,6 +108,14 @@ public class Image implements Serializable {
 
     public void setForm_id_gallery(Integer form_id_gallery) {
         this.form_id_gallery = form_id_gallery;
+    }
+
+    public Integer getId_gallery() {
+        return id_gallery;
+    }
+
+    public void setId_gallery(Integer id_gallery) {
+        this.id_gallery = id_gallery;
     }
     
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -29,10 +30,9 @@ public class Gallery implements Serializable {
     @Column
     private Integer id_thumbnail;
     
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="gallery", orphanRemoval = true)
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="id_gallery")
     private List<Image> images;
-   
-   
     
     /* Required by Hibernate */
     public Gallery() {

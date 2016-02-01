@@ -78,7 +78,7 @@ public class componentController {
             }
             Integer sComponentGroupId = component.getForm_id_component_group();
             component.setComponentGroup( componentGroupDAO.getComponentGroupById(sComponentGroupId) );
-            System.out.println("hromada");
+
             componentDAO.addComponent(component);
         } catch(Exception e) {
             e.printStackTrace();
@@ -214,5 +214,4 @@ public class componentController {
         } 
         return cmpGroupNames;
     }
-    
 }
