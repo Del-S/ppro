@@ -17,10 +17,10 @@ public class adminController {
         return "admin2543/index";
     }
     
-    @RequestMapping(value = {"/admin2543/login"}, method = RequestMethod.GET)
+    /*@RequestMapping(value = {"/admin2543/login"}, method = RequestMethod.GET)
     public String login(Model model) {
         return "admin2543/login";
-    }
+    }*/
     
     /*@RequestMapping(value = {"/admin2543/login"}, method=RequestMethod.POST)
     public String executeLogin(Model model)

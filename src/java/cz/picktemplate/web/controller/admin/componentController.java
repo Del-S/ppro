@@ -169,7 +169,7 @@ public class componentController {
     
     @RequestMapping(value = {"/admin2543/update_component_group"}, method = RequestMethod.POST)
     public String update_component_group(Model model, @Valid @ModelAttribute("componentGroup")ComponentGroup componentGroup, BindingResult result) {
-        try {
+        try {           
             /* Return with errors */
             if(result.hasErrors()) { 
                 logger.error(result.getAllErrors());   
@@ -181,7 +181,9 @@ public class componentController {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return "redirect:view_component_groups";
+        model.addAttribute("componentGroup", componentGroup);
+                return "admin2543/detail/component_group_detail";
+        //return "redirect:view_component_groups";
     }
     
     @RequestMapping(value = {"/admin2543/trash_component_group"}, method = RequestMethod.GET)

@@ -42,19 +42,31 @@
                     
                     <div id="templates">
                         <h2>Šablony</h2>
-                        <div class="template_wrap clearfix">
+                        <div class="template_wrap">
                         <c:forEach var="template" items="${templates}" varStatus="count">
+                            <c:if test="${((count.index mod 4) == 0)}">
+                                <div class="template_row clearfix">
+                            </c:if>
+                            
                             <div class="template ${ ((count.index mod 4) == 0) ? "first" : ""} ${(((count.index+1) mod 4) == 0) ? "last" : ""}">
                                 <div class="image-wrap">
-                                    <a href="<spring:url value="/${template.id_template}/template_detail" htmlEscape="true" />" class="image">
-                                        <img src="#img_link" title="${template.name}" height="225px" width="225px" />
+                                    <a href="<spring:url value="/template_detail/${template.id_template}/" htmlEscape="true" />" class="image">
+                                        <c:set var="thumbnail_src" value="assets/img/dummy_thumbnail.jpg" />
+                                        <c:if test="${not empty template.thumbnail}">
+                                            <c:set var="thumbnail_src" value="${template.thumbnail.thumbnail_src}" />
+                                        </c:if>
+                                        <img src="<spring:url value="/${thumbnail_src}" htmlEscape="true" />" title="${template.name}" height="225px" width="225px" />        
                                     </a>
                                 </div>
                                 <div class="template_description">
-                                    <a href="<spring:url value="/${template.id_template}/template_detail" htmlEscape="true" />">${template.name}</a>
+                                    <a href="<spring:url value="/template_detail/${template.id_template}/" htmlEscape="true" />" class="template_name">${template.name}</a>
                                     <p>${fn:substring(template.description, 0, 255)}<p>
                                 </div>
-                            </div>  
+                            </div> 
+                            
+                            <c:if test="${(((count.index+1) mod 4) == 0)}">
+                                </div>
+                            </c:if>
                         </c:forEach>
                         </div>
                     </div>

@@ -1,9 +1,12 @@
 package cz.picktemplate.web.model.dao;
 
 import cz.picktemplate.web.model.User;
+import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -46,4 +49,17 @@ public class UserDaoImpl implements UserDAO {
             this.sessionFactory.getCurrentSession().delete(employee);
         }
     }
+    
+    @Override
+    @SuppressWarnings("unchecked")
+    public User findByUserName(String login) {
+        List<User> users = new ArrayList<User>();
+        users = sessionFactory.getCurrentSession().createQuery("from User where login=?").setParameter(0, login).list();
+                if (users.size() > 0) {
+			return users.get(0);
+		} else {
+			return null;
+		}
+
+	}
 }

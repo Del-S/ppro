@@ -129,7 +129,7 @@ public class userController {
                 addressDAO.addAddress(address); 
                 user.setId_address(address.getId_address());
             } else {
-                user.setId_address(-1);
+                user.setId_address(null);
             }
             userDAO.addUser(user);
             
@@ -192,7 +192,9 @@ public class userController {
             Integer userId = Integer.parseInt(usId);                 
             
             User us = userDAO.getUserById(userId);
-            addressDAO.deleteAddress(us.getId_address());
+            if(us.getId_address() != null) {
+                addressDAO.deleteAddress(us.getId_address());
+            }
             userDAO.deleteUser(userId);
         } catch(Exception e) {
             e.printStackTrace();

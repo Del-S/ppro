@@ -58,7 +58,7 @@ public class imageController{
             Integer imagId = Integer.parseInt(imageId); 
             Image image = imageDAO.getImagesById(imagId);
             image.getImage_src();
-            File file = new File(rootPath + image.getThumbnail());
+            File file = new File(rootPath + image.getThumbnail_src());
             file.delete();
             File file1 = new File(rootPath + image.getImage_src());
             file1.delete();
@@ -145,7 +145,7 @@ public class imageController{
                     + " because the file was empty.";
         }
         image.setImage_src("assets/uploads/" +i);
-        image.setThumbnail("assets/uploads/thumbnail/" +i);
+        image.setThumbnail_src("assets/uploads/thumbnail/" +i);
         imageDAO.addImage(image);
         return "redirect:view_images";
     }

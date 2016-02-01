@@ -51,4 +51,4 @@
         </ul>
     </nav>
     
-    <div class="container admin">
+    <div class="container clearfix admin">
