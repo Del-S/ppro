@@ -13,6 +13,8 @@ Front-end pallete: http://paletton.com/palette.php?uid=12P0u0kllllaFw0g0qFqFg0w0
 @color-lighter2-basic: #88CC88;
 @color-footer: #181818;
 @color-footer-text: white;
+@color-light-gray: rgba(0, 0, 0, 0.1);
+@color-light-gray2: rgba(0, 0, 0, 0.2);
 
 @dark-text-color: white;
 @default-text-color: #666;
@@ -86,17 +88,60 @@ ol, ul {
     height: 0;
 }
 
+.button {
+    color: @color-lighter-basic;
+    background-color: @main-color;
+    margin: 0;
+    cursor: pointer;
+    overflow: visible;
+    left: auto;
+    white-space: nowrap;
+    display: inline-block;
+    padding: 0.2em 1em;
+    border: 2px solid;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.7em !important;
+    position: relative;
+    
+   
+    .Transition(all 0.2s);
+    .BorderRadiusGlobal(3px);
+    
+    &:hover {
+        border: 0;
+        background-color: @color-light-gray;
+        padding: 0.2em 2em 0.2em 1em;
+        border: 2px solid transparent;
+    }
+    &:hover:after {
+        margin-left: 10px;
+        opacity: 1;
+    }
+    &:after {
+        position: absolute;
+        margin-left: -1em;
+        opacity: 0;
+        line-height: 1em;
+        content: ">";
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        transition: all 0.2s;
+        top: 8px;
+        font-size: 27px;
+    }
+}
+
 h1 {
     line-height: 42px;
     font-size: 42px;
-    font-weight: 900 !important;
 }
 
 h2 {
-    line-height: 30px;
-    font-size: 30px;
+    line-height: 26px;
+    font-size: 26px;
     font-weight: bold;
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
 /* Menu */

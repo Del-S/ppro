@@ -42,14 +42,14 @@ jQuery(document).ready(function( $ ) {
     });
     
     // Ico hide components
-    $('.ico-arrow-up').on("click", function() {
-        if($(this).parent().hasClass("collapsed")) {
-            $(this).parent().removeClass("collapsed");
+    $('.component_group_heading').on("click", function() {
+        if($(this).hasClass("collapsed")) {
+            $(this).removeClass("collapsed");
         } else {
-            $(this).parent().addClass("collapsed");
+            $(this).addClass("collapsed");
         }
         
-        var components = $(this).parents(".component_group").children(".components");
+        var components = $(this).parent().children(".components");
         if($(components).hasClass("hidden")) {
             $(components).removeClass("hidden");
             $(components).slideDown();
@@ -131,10 +131,11 @@ jQuery(document).ready(function( $ ) {
                     var img_link = "./assets/img/dummy_thumbnail.jpg";
                     if( !$.isEmptyObject(template.thumbnail) ) { img_link = template.thumbnail.thumbnail_src; }
                     
-                    html += '<div class="template '+ position +'"> ' +
+                    html += '<div class="template left '+ position +'"> ' +
                         '<div class="image-wrap"> ' +
                             '<a href="./template_detail/'+ template.id_template +'/" class="image"> ' +
                                 '<img src="'+ img_link +'" title="' + template.name + '" height="225px" width="225px" /> ' +
+                                '<span class="overlay"></span>' +
                             '</a> ' +
                         '</div> ' +
                         '<div class="template_description"> ' +

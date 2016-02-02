@@ -5,14 +5,10 @@
 <tiles:insertDefinition name="indexDefinition">
     <tiles:putAttribute name="body">
   
-        <div id="main-area">
-            <div class="fullwidth_header_dark">
-                <div class="container center">
-                    <h1>${h1}</h1>
-                </div>
-            </div>
-            
+        <div id="main-area">            
             <div id="content" class="container clearfix">
+                <h1>${h1}</h1>
+                
                 <p>Tento nástroj má pomoci při výběru webové šablony. Využívat ho může kdokoliv od webdesignérů po zákazníky.</p>
                 
                 <div clas="section">

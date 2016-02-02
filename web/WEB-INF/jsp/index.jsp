@@ -16,7 +16,7 @@
             <div class="main-content">
                 <div class="container clearfix">
                     
-                    <div id="sidebar">
+                    <div id="sidebar" class="left">
                         <h2>Filtry</h2>
                         <c:forEach var="componentGroup" items="${componentGroups}">
                             <div class="component_group">
@@ -40,7 +40,7 @@
                         </c:forEach>
                     </div>
                     
-                    <div id="templates">
+                    <div id="templates" class="right">
                         <h2>Šablony</h2>
                         <div class="template_wrap">
                         <c:forEach var="template" items="${templates}" varStatus="count">
@@ -48,7 +48,7 @@
                                 <div class="template_row clearfix">
                             </c:if>
                             
-                            <div class="template ${ ((count.index mod 4) == 0) ? "first" : ""} ${(((count.index+1) mod 4) == 0) ? "last" : ""}">
+                            <div class="template left ${ ((count.index mod 4) == 0) ? "first" : ""} ${(((count.index+1) mod 4) == 0) ? "last" : ""}">
                                 <div class="image-wrap">
                                     <a href="<spring:url value="/template_detail/${template.id_template}/" htmlEscape="true" />" class="image">
                                         <c:set var="thumbnail_src" value="assets/img/dummy_thumbnail.jpg" />
@@ -56,6 +56,7 @@
                                             <c:set var="thumbnail_src" value="${template.thumbnail.thumbnail_src}" />
                                         </c:if>
                                         <img src="<spring:url value="/${thumbnail_src}" htmlEscape="true" />" title="${template.name}" height="225px" width="225px" />        
+                                        <span class="overlay"></span>
                                     </a>
                                 </div>
                                 <div class="template_description">

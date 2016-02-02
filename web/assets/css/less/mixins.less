@@ -44,10 +44,22 @@
             border-bottom-right-radius: @bottom-right;
 }
 
+.BorderRadiusGlobal(@border-radius : 0) {  
+    -webkit-border-radius: @border-radius;
+       -moz-border-radius: @border-radius;
+            border-radius: @border-radius;
+}
+
 .Rotate(@deg : 0) {
     -webkit-transform: rotate(@deg);
        -moz-transform: rotate(@deg);
         -ms-transform: rotate(@deg);
          -o-transform: rotate(@deg);
 }
-    
+
+.BackfaceVisibility(@visibility : hidden) {
+    -webkit-backface-visibility: @visibility;
+       -moz-backface-visibility: @visibility;
+         -o-backface-visibility: @visibility;
+            backface-visibility: @visibility;
+}    

@@ -103,6 +103,7 @@ public class indexController {
             model.addAttribute("template", template); 
             model.addAttribute("allComponents", allComponents); 
             model.addAttribute("thumbnail", thumbnail);
+            model.addAttribute("money_sign", "Kč");
             model.addAttribute("images", images);            
             return "template_detail";
         } catch(Exception e) {

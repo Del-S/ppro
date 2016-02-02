@@ -16,6 +16,7 @@ Current progress:
 - Eshop style frontend
 - Images on front-end and fancybox
 - Fixed UTF-8 encoding
+- New logo
 
 Current issues:
 - User login + security

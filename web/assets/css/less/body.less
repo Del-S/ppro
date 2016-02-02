@@ -38,9 +38,9 @@
 
 /* Sidebar */
 #sidebar {
-    float: left;
-    width: 250px;
+    width: 242px;
     padding: 15px 7px;
+    margin-right: 7px;
 }
 
 // Sidebar title
@@ -55,9 +55,10 @@
 .comp_checkbox_span { cursor: pointer; }
 
 .component_group_heading {
-    border-bottom: 1px solid @color-lighter2-basic;
+    border-bottom: 1px solid @color-light-gray2;
     cursor: pointer;
-    padding-bottom: 6px; 
+    padding-bottom: 5px; 
+    margin-bottom: 5px;
     position: relative;
     line-height: 14px;
     &.collapsed i {
@@ -83,15 +84,15 @@
 .filter-row {
     input[type="checkbox"] {
         width: 16px;
-        height: 16px;  
+        height: 16px; 
+        vertical-align: middle;
     }  
 }
 
 /* Tamplates */
 #templates {
-    float: right;
     width: 77%;
-    padding: 10px 5px;
+    padding: 15px 5px;
     position: relative;
 }
 
@@ -100,16 +101,19 @@
 }
 
 .template_row {
-    border-bottom: 1px solid @color-lighter2-basic;
+    border-bottom: 1px solid @color-light-gray2;
 }
 
 .template {
-    border-right: 1px solid @color-lighter2-basic;
-    float: left;
+    border-right: 1px solid @color-light-gray2;
     padding: 10px 5px 10px 5px;
     width: 24%;
     &.first { padding-left: 0; }
     &.last { padding-right: 0; border-right: none; }
+    .image-wrap {
+        position: relative;
+        a:hover .overlay { opacity: 0.5; }
+    } 
     .template_description {
         a.template_name { 
             margin: 5px 0 10px 0;
@@ -123,35 +127,106 @@
             font-size: 16px;
             margin: 0; 
         }
+        p a { color: @default-text-color; }
     }
 }
 
-#template_detail {
-    padding: 15px 0;
-    #gallery_wrap { 
-        float: left; 
-        width: 500px;
-        #gallery {
-            a {
-                display: block;
-                text-decoration: none;
-                width: 100px;
-                height: 100px;
-                overflow: hidden;
-                float: left;
-                margin: 0 13px;
-                img { 
-                    max-width: 100px;
+.overlay {
+    display: block;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid @color-light-gray;
+    opacity: 0;
+    background: @main-color;
+    -webkit-transform: translate3d(0, 0, 0);
+
+    .BoxSizing(border-box);
+    .Transition(all 0.3s);
+    .BackfaceVisibility(hidden);
+}
+
+#template_detail_warp {
+    border-left: 1px solid @color-light-gray;
+    border-right: 1px solid @color-light-gray;
+    #template_detail {
+        padding: 30px 20px 15px 20px; 
+        margin-bottom: 15px;
+        border-bottom: 1px solid @color-light-gray;
+        #template_summary {
+            float: right;
+            width: 56%;
+            h1 { 
+                color: @color-basic;
+                font-weight: bold !important;
+                margin-bottom: 8px;
+            }
+            .template_excerpt {
+                margin: 10px 0;                
+            }
+            .prices {
+                .price_implement {
+                    color: @color-basic;
+                    font-size: 26px;
                 }
-                &:first-child { margin-left: 0; }
-                &:last-child { margin-right: 0; }
+                .price_editing {
+                    font-size: 18px;
+                }
             }
         }
+        
+        #gallery_wrap { 
+            float: left; 
+            width: 490px;
+            > a img {
+                padding: 5px;
+                border: 1px solid #ddd;
+            }
+            #gallery {
+                a {
+                    display: block;
+                    text-decoration: none;
+                    width: 100px;
+                    height: 100px;
+                    padding: 5px;
+                    border: 1px solid #ddd;
+                    overflow: hidden;
+                    float: left;
+                    margin: 0 7px;
+                    img { 
+                        max-width: 100px;
+                        vertical-align: middle;
+                    }
+                    &:first-child { margin-left: 0; }
+                    &:last-child { margin-right: 0; }
+                }
+            }
+        }
+
+        .helper {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
     }
-    
     #template_content {
-        float: right;
-        width: 58%;
+        padding: 10px 20px; 
+        margin-bottom: 15px;
+        
+    }
+}
+
+/* CMS */
+#content {
+    padding: 30px 20px;   
+    border-left: 1px solid @color-light-gray;
+    border-right: 1px solid @color-light-gray;
+    h1 {
+        color: @color-basic;
+        margin-bottom: 15px;
     }
 }
 
